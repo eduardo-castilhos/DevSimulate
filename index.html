@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocGen - Gerador de Documentos Fictícios</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo-section">
+                <div class="logo-placeholder">
+                    <img src="assets/logo.png" alt="Logo" id="logoImg">
+                </div>
+                <div class="logo-text">
+                    <h1>Gerador de Documentos</h1>
+                    <p>Desesnvolvido por: Eduardo Castilhos</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="sidebar">
+            <nav class="nav-menu">
+                <button class="nav-item active" data-tab="cpf">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                        <line x1="16" y1="13" x2="8" y2="13"></line>
+                        <line x1="16" y1="17" x2="8" y2="17"></line>
+                        <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <span>Gerar CPF</span>
+                </button>
+                
+                <button class="nav-item" data-tab="name">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <span>Gerar Nome</span>
+                </button>
+                
+                <button class="nav-item" data-tab="records">
+                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                        <polyline points="7 10 12 15 17 10"></polyline>
+                        <line x1="12" y1="15" x2="12" y2="3"></line>
+                    </svg>
+                    <span>Gerar Registros</span>
+                </button>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- CPF Tab -->
+            <div class="tab-content active" id="cpf-tab">
+                <div class="card">
+                    <h2>Gerador de CPF</h2>
+                    <p class="description">Gere números de CPF válidos para testes e desenvolvimento.</p>
+                    
+                    <button class="btn-primary" id="generateCpfBtn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        </svg>
+                        Gerar CPF
+                    </button>
+                    
+                    <div class="result-box" id="cpfResult" style="display: none;">
+                        <p class="result-label">CPF Gerado:</p>
+                        <p class="result-value" id="cpfValue"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Name Tab -->
+            <div class="tab-content" id="name-tab">
+                <div class="card">
+                    <h2>Gerador de Nomes</h2>
+                    <p class="description">Gere nomes completos aleatórios em português brasileiro.</p>
+                    
+                    <button class="btn-primary" id="generateNameBtn">
+                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        </svg>
+                        Gerar Nome
+                    </button>
+                    
+                    <div class="result-box" id="nameResult" style="display: none;">
+                        <p class="result-label">Nome Gerado:</p>
+                        <p class="result-value name-value" id="nameValue"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Records Tab -->
+            <div class="tab-content" id="records-tab">
+                <div class="card card-large">
+                    <h2>Gerador de Registros</h2>
+                    <p class="description">Gere múltiplos registros completos e exporte em JSON.</p>
+                    
+                    <div class="input-group">
+                        <div class="input-wrapper">
+                            <label for="recordCount">Quantidade de Registros (1-25)</label>
+                            <input type="number" id="recordCount" min="1" max="25" value="10">
+                        </div>
+                        
+                        <button class="btn-primary" id="generateRecordsBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 4 23 10 17 10"></polyline>
+                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                            </svg>
+                            Gerar
+                        </button>
+                    </div>
+
+                    <div id="recordsContainer" style="display: none;">
+                        <button class="btn-success" id="downloadJsonBtn">
+                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Baixar JSON
+                        </button>
+
+                        <div class="table-container">
+                            <table id="recordsTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nome</th>
+                                        <th>CPF</th>
+                                        <th>Data Nascimento</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recordsTableBody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="data-names.js"></script>
+    <script src="data-surnames.js"></script>
+    <script src="cpf-generator.js"></script>
+    <script src="name-generator.js"></script>
+    <script src="records-generator.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
