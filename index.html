@@ -25,12 +25,12 @@
         <aside class="sidebar">
             <nav class="nav-menu">
                 <button class="nav-item active" data-tab="cpf">
-                    <img src="assets/24px/ImgSideBarCpf.png" alt="">
+                    <img src="assets/24px/ImgSideBarCpf.png" alt="CPF" class="nav-icon">
                     <span>Gerar CPF</span>
                 </button>
                 
                 <button class="nav-item" data-tab="name">
-                    <img src="assets/24px/ImgSideBarPessoa.png" alt="">
+                    <img src="assets/24px/ImgSideBarPessoa.png" alt="Pessoa" class="nav-icon">
                     <span>Gerar Nome</span>
                 </button>
                 
@@ -63,7 +63,12 @@
                     
                     <div class="result-box" id="cpfResult" style="display: none;">
                         <p class="result-label">CPF Gerado:</p>
-                        <p class="result-value" id="cpfValue"></p>
+                        <div class="result-with-copy">
+                            <p class="result-value" id="cpfValue"></p>
+                            <button class="btn-copy" id="copyCpfBtn" title="Copiar CPF">
+                                <img src="assets/24px/ImgCopiar.png" alt="" class="copy-icon">
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

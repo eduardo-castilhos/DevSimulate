@@ -114,7 +114,7 @@ body {
 
 .nav-item.active {
     background: rgba(0, 122, 255, 0.08);
-    color: #007AFF;
+    color: #0b2f22f5;
 }
 
 .nav-icon {
@@ -370,4 +370,40 @@ td:nth-child(3) {
     .input-group {
         flex-direction: column;
     }
+}
+
+/* Botão de Copiar */
+.result-with-copy {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    justify-content: space-between;
+}
+
+.btn-copy {
+    background: rgba(0, 122, 255, 0.1);
+    border: 1px solid rgba(0, 122, 255, 0.2);
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-copy:hover {
+    background: rgba(0, 122, 255, 0.15);
+    border-color: rgba(0, 122, 255, 0.3);
+    transform: translateY(-1px);
+}
+
+.btn-copy:active {
+    transform: translateY(0);
+}
+
+.btn-copy.copied {
+    background: rgba(52, 199, 89, 0.1);
+    border-color: rgba(52, 199, 89, 0.3);
 }
