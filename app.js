@@ -29,19 +29,103 @@ document.addEventListener('DOMContentLoaded', function() {
             switchTab(tabName);
         });
     });
+
+    document.querySelectorAll('input[name="personFormat"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const isJson = this.value === 'json';
+            document.getElementById('quantityGeneratePerson').style.display = isJson ? 'block' : 'none';
+        });
+    });
     
     // Botão de gerar CPF
     document.getElementById('generateCpfBtn').addEventListener('click', function() {
-        const cpf = generateCPF();
-        document.getElementById('cpfValue').textContent = cpf;
+        const quantityCpfGenerate = parseInt(document.querySelector('input[name="cpfQuantity"]:checked').value);
+        const formatGenerate = document.querySelector('input[name="cpfFormat"]:checked').value;
+        const block = document.getElementById('cpfValue');
+        
+        if (quantityCpfGenerate > 20){
+            return;
+        }
+
+        let cpfsGenerated = [];
+        for(let i = 0; i < quantityCpfGenerate; i++) {
+            const cpf = generateCPF();
+            cpfsGenerated.push(cpf);
+        }
+        
+        if (formatGenerate === 'json') {
+            block.textContent = JSON.stringify(cpfsGenerated, null, 2);
+            block.style.fontSize = '14px';
+            block.style.whiteSpace = 'pre';
+        } else {
+            block.textContent = cpfsGenerated.join('\n');
+            block.style.lineHeight = '1.5'
+            block.style.fontSize = '';
+            block.style.whiteSpace = 'pre-line';
+        }
+        
         document.getElementById('cpfResult').style.display = 'block';
     });
     
     document.getElementById('generateNameBtn').addEventListener('click', function() {
+        const quantity = parseInt(document.querySelector('input[name="personQuantity"]:checked').value);
+        const format = document.querySelector('input[name="personFormat"]:checked').value;
 
-        const name = generateName();
-        document.getElementById('nameValue').textContent = name;
-        document.getElementById('nameResult').style.display = 'block';
+        let peopleGenerated = [];
+        if (format === 'json'){
+            for(let i = 0; i < quantity; i++) {
+                const person = {
+                    nome: generateName(),
+                    dataNascimento: generateBirthDate()
+                };
+                peopleGenerated.push(person);
+            }
+        } else {
+            const person = {
+                nome: generateName(),
+                dataNascimento: generateBirthDate()
+            };
+            peopleGenerated.push(person);
+        }
+
+        // Exibir conforme o formato selecionado
+        if (format === 'json') {
+            // Formato JSON
+            document.getElementById('nameResult').style.display = 'block';
+            document.getElementById('birthDateResult').style.display = 'none';
+            
+            const nameBlock = document.getElementById('nameValue');
+            nameBlock.textContent = JSON.stringify(peopleGenerated, null, 2);
+            nameBlock.style.fontSize = '14px';
+            nameBlock.style.whiteSpace = 'pre';
+            nameBlock.style.fontFamily = "'SF Mono', 'Monaco', 'Courier New', monospace";
+            nameBlock.style.lineHeight = '1.6';
+            
+            // Mudar o label
+            document.querySelector('#nameResult .result-label').textContent = 'JSON Gerado:';
+            
+        } else {
+            // Formato Visual
+            document.getElementById('nameResult').style.display = 'block';
+            document.getElementById('birthDateResult').style.display = 'block';
+            
+            const nameBlock = document.getElementById('nameValue');
+            const birthBlock = document.getElementById('birthDateValue');
+            
+            // Restaurar estilos
+            nameBlock.style.fontSize = '';
+            nameBlock.style.whiteSpace = 'pre-line';
+            nameBlock.style.fontFamily = '';
+            nameBlock.style.lineHeight = '2.2';
+            birthBlock.style.lineHeight = '2.2';
+            
+            // Preencher os dados
+            nameBlock.textContent = peopleGenerated.map(p => p.nome).join('\n');
+            birthBlock.textContent = peopleGenerated.map(p => p.dataNascimento).join('\n');
+            
+            // Restaurar o label
+            document.querySelector('#nameResult .result-label').textContent = 'Nome Gerado:';
+        }
     });
     
     // Botão de gerar Registros

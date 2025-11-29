@@ -26,70 +26,137 @@
             <nav class="nav-menu">
                 <button class="nav-item active" data-tab="cpf">
                     <img src="assets/24px/ImgSideBarCpf.png" alt="CPF" class="nav-icon">
-                    <span>Gerar CPF</span>
+                    <span>Gerador de CPF</span>
                 </button>
                 
-                <button class="nav-item" data-tab="name">
+                <button class="nav-item" data-tab="person">
                     <img src="assets/24px/ImgSideBarPessoa.png" alt="Pessoa" class="nav-icon">
-                    <span>Gerar Nome</span>
-                </button>
-                
-                <button class="nav-item" data-tab="records">
-                    <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                        <polyline points="7 10 12 15 17 10"></polyline>
-                        <line x1="12" y1="15" x2="12" y2="3"></line>
-                    </svg>
-                    <span>Gerar Registros</span>
+                    <span>Gerador de Pessoa</span>
                 </button>
             </nav>
         </aside>
 
         <!-- Main Content -->
         <main class="content">
-            <!-- CPF Tab -->
+
+            <!-- Gerar CPF Tab -->
             <div class="tab-content active" id="cpf-tab">
                 <div class="card">
                     <h2>Gerador de CPF</h2>
                     <p class="description">Gere números de CPF válidos para testes e desenvolvimento.</p>
                     
+                    <!-- Opções de Configuração -->
+                    <div class="config-group">
+
+                        <div class="config-item">
+                            <label class="config-label">Formato</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="cpfFormat" value="visual" checked>
+                                    <span class="radio-label">Visual</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="cpfFormat" value="json">
+                                    <span class="radio-label">JSON</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="config-item">
+                            <label class="config-label">Quantidade</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="cpfQuantity" value="1" checked>
+                                    <span class="radio-label">1</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="cpfQuantity" value="5">
+                                    <span class="radio-label">5</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="cpfQuantity" value="10">
+                                    <span class="radio-label">10</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="cpfQuantity" value="20">
+                                    <span class="radio-label">20</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
                     <button class="btn-primary" id="generateCpfBtn">
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="23 4 23 10 17 10"></polyline>
-                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                        </svg>
-                        Gerar CPF
+                        <img class="btn-icon" src="assets/24px/ImgAtualizar.png" alt="Atualizar">
+                        Gerar
                     </button>
                     
                     <div class="result-box" id="cpfResult" style="display: none;">
                         <p class="result-label">CPF Gerado:</p>
-                        <div class="result-with-copy">
+                        <div class="result-with-copy" id="cpfValueBox">
                             <p class="result-value" id="cpfValue"></p>
-                            <button class="btn-copy" id="copyCpfBtn" title="Copiar CPF">
-                                <img src="assets/24px/ImgCopiar.png" alt="" class="copy-icon">
-                            </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Name Tab -->
-            <div class="tab-content" id="name-tab">
+            <!-- Gerar Pessoa Tab -->
+            <div class="tab-content" id="person-tab">
                 <div class="card">
-                    <h2>Gerador de Nomes</h2>
-                    <p class="description">Gere nomes completos aleatórios em português brasileiro.</p>
+                    <h2>Gerador de Pessoas</h2>
+                    <p class="description">Gere pessoas completos aleatórios em português brasileiro.</p>
                     
+                    <!-- Opções de Configuração -->
+                    <div class="config-group">
+                        <div class="config-item" id="formatGeneratePerson">
+                            <label class="config-label">Formato</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="personFormat" value="visual" checked>
+                                    <span class="radio-label">Visual</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="personFormat" value="json">
+                                    <span class="radio-label">JSON</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="config-item" id="quantityGeneratePerson" style="display: none;">
+                            <label class="config-label">Quantidade</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="personQuantity" value="1" checked>
+                                    <span class="radio-label">1</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="personQuantity" value="5">
+                                    <span class="radio-label">5</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="personQuantity" value="10">
+                                    <span class="radio-label">10</span>
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="personQuantity" value="20">
+                                    <span class="radio-label">20</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
                     <button class="btn-primary" id="generateNameBtn">
-                        <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <polyline points="23 4 23 10 17 10"></polyline>
-                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                        </svg>
-                        Gerar Nome
+                        <img class="btn-icon" src="assets/24px/ImgAtualizar.png" alt="Atualizar">
+                        Gerar
                     </button>
                     
                     <div class="result-box" id="nameResult" style="display: none;">
                         <p class="result-label">Nome Gerado:</p>
                         <p class="result-value name-value" id="nameValue"></p>
+                    </div>
+
+                    <div class="result-box" id="birthDateResult" style="display: none;">
+                        <p class="result-label">Data de Nascimento:</p>
+                        <p class="result-value name-value" id="birthDateValue"></p>
                     </div>
                 </div>
             </div>
@@ -149,7 +216,7 @@
     <script src="data-names.js"></script>
     <script src="data-surnames.js"></script>
     <script src="cpf-generator.js"></script>
-    <script src="name-generator.js"></script>
+    <script src="person-generator.js"></script>
     <script src="records-generator.js"></script>
     <script src="app.js"></script>
 </body>

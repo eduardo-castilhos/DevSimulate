@@ -225,14 +225,14 @@ body {
 }
 
 .btn-icon {
-    width: 18px;
-    height: 18px;
+    width: 24px;
+    height: 24px;
 }
 
 /* Result Box */
 .result-box {
-    margin-top: 32px;
-    padding: 28px;
+    margin-top: 20px;
+    padding: 15px;
     background: rgba(0, 122, 255, 0.04);
     border-radius: 14px;
     border: 1px solid rgba(0, 122, 255, 0.1);
@@ -342,6 +342,72 @@ td:nth-child(3) {
     font-size: 14px;
 }
 
+.config-group {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.config-item {
+    flex: 1;
+}
+
+.config-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1d1d1f;
+    margin-bottom: 12px;
+}
+
+.radio-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.radio-option {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+}
+
+.radio-option input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.radio-label {
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1.5px solid rgba(0, 0, 0, 0.08);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #6e6e73;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 50px;
+    text-align: center;
+}
+
+.radio-option:hover .radio-label {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.12);
+}
+
+.radio-option input[type="radio"]:checked + .radio-label {
+    background: rgba(0, 122, 255, 0.1);
+    border-color: #007AFF;
+    color: #007AFF;
+    font-weight: 600;
+}
+
+.radio-option input[type="radio"]:focus + .radio-label {
+    box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .main-container {
@@ -369,6 +435,20 @@ td:nth-child(3) {
     
     .input-group {
         flex-direction: column;
+    }
+
+    .config-group {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .radio-group {
+        gap: 6px;
+    }
+    
+    .radio-label {
+        padding: 8px 16px;
+        font-size: 13px;
     }
 }
 
