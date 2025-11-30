@@ -45,7 +45,6 @@
                     <h2>Gerador de CPF</h2>
                     <p class="description">Gere números de CPF válidos para testes e desenvolvimento.</p>
                     
-                    <!-- Opções de Configuração -->
                     <div class="config-group">
 
                         <div class="config-item">
@@ -62,7 +61,7 @@
                             </div>
                         </div>
                         
-                        <div class="config-item">
+                        <div class="config-item" id="quantityGenerateCpf" style="display: none;">
                             <label class="config-label">Quantidade</label>
                             <div class="radio-group">
                                 <label class="radio-option">
@@ -107,20 +106,29 @@
                     
                     <!-- Opções de Configuração -->
                     <div class="config-group">
-                        <div class="config-item" id="formatGeneratePerson">
+                        <div class="config-item">
                             <label class="config-label">Formato</label>
                             <div class="radio-group">
                                 <label class="radio-option">
-                                    <input type="radio" name="personFormat" value="visual" checked>
+                                    <input type="radio" name="personFormat" value="visual" checked onchange="togglePersonQuantityVisibility()">
                                     <span class="radio-label">Visual</span>
                                 </label>
                                 <label class="radio-option">
-                                    <input type="radio" name="personFormat" value="json">
+                                    <input type="radio" name="personFormat" value="json" onchange="togglePersonQuantityVisibility()">
                                     <span class="radio-label">JSON</span>
                                 </label>
                             </div>
                         </div>
-                        
+
+                        <div class="config-item">
+                            <label class="config-label">Sexo</label>
+                            <select id="personSexSelect" class="config-select">
+                                <option value="Indiferente" selected>Indiferente</option>
+                                <option value="Feminino">Feminino</option>
+                                <option value="Masculino">Masculino</option>
+                            </select>
+                        </div>
+
                         <div class="config-item" id="quantityGeneratePerson" style="display: none;">
                             <label class="config-label">Quantidade</label>
                             <div class="radio-group">
@@ -213,11 +221,10 @@
     </div>
 
     <!-- Scripts -->
-    <script src="data-names.js"></script>
-    <script src="data-surnames.js"></script>
-    <script src="cpf-generator.js"></script>
-    <script src="person-generator.js"></script>
-    <script src="records-generator.js"></script>
-    <script src="app.js"></script>
+    <script src="js/datas/names.js"></script>
+    <script src="js/datas/surnames.js"></script>
+    <script src="js/generators/cpf.js"></script>
+    <script src="js/generators/person.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

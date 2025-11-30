@@ -344,12 +344,13 @@ td:nth-child(3) {
 
 .config-group {
     display: flex;
-    gap: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
     margin-bottom: 24px;
 }
 
 .config-item {
-    flex: 1;
+    flex: 1 1 250px;
 }
 
 .config-label {
@@ -406,6 +407,15 @@ td:nth-child(3) {
 
 .radio-option input[type="radio"]:focus + .radio-label {
     box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.config-select {
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    background: #fff;
+    font-size: 14px;
 }
 
 /* Responsive */

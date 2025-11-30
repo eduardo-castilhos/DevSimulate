@@ -1,25 +1,18 @@
-// Aplicação principal - gerencia navegação e eventos
-
 // Função para trocar entre abas
 function switchTab(tabName) {
-    // Remove active de todas as abas
+    
     document.querySelectorAll('.tab-content').forEach(tab => {
         tab.classList.remove('active');
     });
     
-    // Remove active de todos os botões de navegação
     document.querySelectorAll('.nav-item').forEach(btn => {
         btn.classList.remove('active');
     });
     
-    // Adiciona active na aba selecionada
     document.getElementById(`${tabName}-tab`).classList.add('active');
-    
-    // Adiciona active no botão selecionado
     document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
 }
 
-// Event Listeners quando o documento carregar
 document.addEventListener('DOMContentLoaded', function() {
     
     // Navegação entre abas
@@ -30,6 +23,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // quantidade de cpf a serem geradas apenas qunado for json
+    document.querySelectorAll('input[name="cpfFormat"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            const isJson = this.value === 'json';
+            document.getElementById('quantityGenerateCpf').style.display = isJson ? 'block' : 'none';
+        });
+    });
+
+    // quantidade de pessoas a serem geradas apenas qunado for json
     document.querySelectorAll('input[name="personFormat"]').forEach(radio => {
         radio.addEventListener('change', function() {
             const isJson = this.value === 'json';
@@ -39,12 +41,17 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Botão de gerar CPF
     document.getElementById('generateCpfBtn').addEventListener('click', function() {
-        const quantityCpfGenerate = parseInt(document.querySelector('input[name="cpfQuantity"]:checked').value);
         const formatGenerate = document.querySelector('input[name="cpfFormat"]:checked').value;
         const block = document.getElementById('cpfValue');
         
-        if (quantityCpfGenerate > 20){
-            return;
+        let quantityCpfGenerate = 1;
+
+        if (formatGenerate === 'json') {
+            quantityCpfGenerate = parseInt(document.querySelector('input[name="cpfQuantity"]:checked').value);
+
+            if (quantityCpfGenerate > 20){
+                quantityCpfGenerate = 20
+            }
         }
 
         let cpfsGenerated = [];
@@ -67,85 +74,76 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('cpfResult').style.display = 'block';
     });
     
-    document.getElementById('generateNameBtn').addEventListener('click', function() {
-        const quantity = parseInt(document.querySelector('input[name="personQuantity"]:checked').value);
+    document.getElementById('generateNameBtn').addEventListener('click', function () {
         const format = document.querySelector('input[name="personFormat"]:checked').value;
+        const sexChoice = document.getElementById('personSexSelect').value;
+
+        let quantity = format === 'json'
+            ? parseInt(document.querySelector('input[name="personQuantity"]:checked').value)
+            : 1;
 
         let peopleGenerated = [];
-        if (format === 'json'){
-            for(let i = 0; i < quantity; i++) {
-                const person = {
-                    nome: generateName(),
-                    dataNascimento: generateBirthDate()
-                };
-                peopleGenerated.push(person);
+
+        for (let i = 0; i < quantity; i++) {
+
+            let currentSex = sexChoice;
+
+            if (currentSex === 'Indiferente') {
+                currentSex = Math.random() < 0.5 ? 'Masculino' : 'Feminino';
             }
-        } else {
-            const person = {
-                nome: generateName(),
-                dataNascimento: generateBirthDate()
-            };
-            peopleGenerated.push(person);
+
+            const nameGenerated = generateName(currentSex);
+            const dateGenerated = generateBirthDate();
+
+            peopleGenerated.push({
+                nome: nameGenerated,
+                dataNascimento: dateGenerated,
+                sexo: currentSex
+            });
         }
 
-        // Exibir conforme o formato selecionado
+        // --- Lógica de Exibição ---
+
+        const nameBlock = document.getElementById('nameValue');
+        const birthBlock = document.getElementById('birthDateValue');
+        const nameResultDiv = document.getElementById('nameResult');
+        const birthResultDiv = document.getElementById('birthDateResult');
+
         if (format === 'json') {
-            // Formato JSON
-            document.getElementById('nameResult').style.display = 'block';
-            document.getElementById('birthDateResult').style.display = 'none';
+            // --- Formato JSON ---
+            nameResultDiv.style.display = 'block';
+            birthResultDiv.style.display = 'none'; // Esconde o bloco de data separado
             
-            const nameBlock = document.getElementById('nameValue');
             nameBlock.textContent = JSON.stringify(peopleGenerated, null, 2);
+            
+            // Estilização para código
             nameBlock.style.fontSize = '14px';
             nameBlock.style.whiteSpace = 'pre';
             nameBlock.style.fontFamily = "'SF Mono', 'Monaco', 'Courier New', monospace";
             nameBlock.style.lineHeight = '1.6';
             
-            // Mudar o label
+            // Atualiza label
             document.querySelector('#nameResult .result-label').textContent = 'JSON Gerado:';
             
         } else {
-            // Formato Visual
-            document.getElementById('nameResult').style.display = 'block';
-            document.getElementById('birthDateResult').style.display = 'block';
+            // --- Formato Visual ---
+            nameResultDiv.style.display = 'block';
+            birthResultDiv.style.display = 'block'; // Mostra o bloco de data
             
-            const nameBlock = document.getElementById('nameValue');
-            const birthBlock = document.getElementById('birthDateValue');
-            
-            // Restaurar estilos
+            // Restaura estilos visuais limpos
             nameBlock.style.fontSize = '';
             nameBlock.style.whiteSpace = 'pre-line';
             nameBlock.style.fontFamily = '';
             nameBlock.style.lineHeight = '2.2';
             birthBlock.style.lineHeight = '2.2';
             
-            // Preencher os dados
+            // Mapeia apenas os valores para exibição (Visualmente mostramos apenas o primeiro se for Visual, ou a lista simples)
+            // Como forçamos quantity = 1 no modo visual, peopleGenerated tem apenas 1 item
             nameBlock.textContent = peopleGenerated.map(p => p.nome).join('\n');
             birthBlock.textContent = peopleGenerated.map(p => p.dataNascimento).join('\n');
             
-            // Restaurar o label
+            // Restaura label
             document.querySelector('#nameResult .result-label').textContent = 'Nome Gerado:';
         }
     });
-    
-    // Botão de gerar Registros
-    document.getElementById('generateRecordsBtn').addEventListener('click', function() {
-        const count = parseInt(document.getElementById('recordCount').value) || 10;
-        generateRecords(count);
-        renderRecordsTable();
-        document.getElementById('recordsContainer').style.display = 'block';
-    });
-    
-    // Botão de baixar JSON
-    document.getElementById('downloadJsonBtn').addEventListener('click', function() {
-        downloadJSON();
-    });
-    
-    // Validação do input de quantidade de registros
-    document.getElementById('recordCount').addEventListener('input', function() {
-        let value = parseInt(this.value);
-        if (value < 1) this.value = 1;
-        if (value > 25) this.value = 25;
-    });
-    
 });
