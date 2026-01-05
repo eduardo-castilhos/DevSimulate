@@ -85,10 +85,12 @@ const App = {
         if (type === 'pessoa') {
             const sexFilter = document.getElementById('pSex').value;
             const finalSex = sexFilter === 'indiferente' ? (Math.random() > 0.5 ? "Masculino" : "Feminino") : sexFilter.charAt(0).toUpperCase() + sexFilter.slice(1);
-            
+            const finalName = Generators.name(finalSex);
+           const finalEmail = removerAcentos(finalName).trim().replace(/\s+/g, '.').toLowerCase() + '.ds@mail.com';
+
             return {
                 dados_pessoais: {
-                    nome: Generators.name(finalSex),
+                    nome: finalName,
                     cpf: Generators.cpf(),
                     rg: Generators.rg ? Generators.rg() : "48.231.552-X",
                     nascimento: Generators.birthDate ? Generators.birthDate() : "15/05/1992",
@@ -96,7 +98,7 @@ const App = {
                 },
                 endereco: Generators.getEndereco(),
                 acesso_e_contato: {
-                    email: "contato@exemplo.com",
+                    email: finalEmail,
                     senha: Generators.password(12, {upper:true, num:true, sym:true}),
                     celular: `(11) 9${Math.floor(10000000 + Math.random() * 90000000)}`
                 }
@@ -168,3 +170,9 @@ const App = {
 };
 
 App.init();
+
+function removerAcentos(texto) {
+  return texto
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
