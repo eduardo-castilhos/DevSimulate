@@ -3,228 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocGen - Gerador de Documentos Fictícios</title>
+    <title>DocGen - Dev Power Tools</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header class="header">
-        <div class="header-content">
-            <div class="logo-section">
-                <div class="logo-placeholder">
-                    <img src="assets/logo.png" alt="Logo" id="logoImg">
-                </div>
-                <div class="logo-text">
-                    <h1>Gerador de Documentos</h1>
-                    <p>Desenvolvido por: Eduardo Castilhos</p>
-                </div>
+    <div class="layout">
+        <aside class="sidebar" id="sidebar">
+            <div class="logo">
+                <img src="assets/logo.png" alt="" id="logoImg" onerror="this.style.display='none'">
             </div>
-        </div>
-    </header>
-
-    <div class="main-container">
-        <aside class="sidebar">
             <nav class="nav-menu">
-                <button class="nav-item active" data-tab="cpf">
-                    <img src="assets/24px/ImgSideBarCpf.png" alt="CPF" class="nav-icon">
-                    <span>Gerador de CPF</span>
-                </button>
-                
-                <button class="nav-item" data-tab="person">
-                    <img src="assets/24px/ImgSideBarPessoa.png" alt="Pessoa" class="nav-icon">
-                    <span>Gerador de Pessoa</span>
-                </button>
+                <a href="#/pessoa" class="nav-item">Gerador de Pessoa</a>
+                <a href="#/cpf" class="nav-item">Gerador de CPF</a>
+                <a href="#/cnpj" class="nav-item">Gerador de CNPJ</a>
+                <a href="#/rg" class="nav-item">Gerador de RG</a>
+                <a href="#/cartao" class="nav-item">Cartão de Crédito</a>
+                <a href="#/cep" class="nav-item">Gerador de CEP</a>
+                <a href="#/senha" class="nav-item">Gerador de Senha</a>
+                <a href="#/guid" class="nav-item">Gerador de GUID/UUID</a>
             </nav>
         </aside>
 
-        <!-- Main Content -->
-        <main class="content">
+        <main class="main-content" id="main-content">
+            <button id="menu-toggle" class="menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
 
-            <!-- Gerar CPF Tab -->
-            <div class="tab-content active" id="cpf-tab">
-                <div class="card">
-                    <h2>Gerador de CPF</h2>
-                    <p class="description">Gere números de CPF válidos para testes e desenvolvimento.</p>
-                    
-                    <div class="config-group">
-
-                        <div class="config-item">
-                            <label class="config-label">Formato</label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="cpfFormat" value="visual" checked>
-                                    <span class="radio-label">Visual</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="cpfFormat" value="json">
-                                    <span class="radio-label">JSON</span>
-                                </label>
-                            </div>
-                        </div>
-                        
-                        <div class="config-item" id="quantityGenerateCpf" style="display: none;">
-                            <label class="config-label">Quantidade</label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="cpfQuantity" value="1" checked>
-                                    <span class="radio-label">1</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="cpfQuantity" value="5">
-                                    <span class="radio-label">5</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="cpfQuantity" value="10">
-                                    <span class="radio-label">10</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="cpfQuantity" value="20">
-                                    <span class="radio-label">20</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button class="btn-primary" id="generateCpfBtn">
-                        <img class="btn-icon" src="assets/24px/ImgAtualizar.png" alt="Atualizar">
-                        Gerar
-                    </button>
-                    
-                    <div class="result-box" id="cpfResult" style="display: none;">
-                        <p class="result-label">CPF Gerado:</p>
-                        <div class="result-with-copy" id="cpfValueBox">
-                            <p class="result-value" id="cpfValue"></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Gerar Pessoa Tab -->
-            <div class="tab-content" id="person-tab">
-                <div class="card">
-                    <h2>Gerador de Pessoas</h2>
-                    <p class="description">Gere pessoas completos aleatórios em português brasileiro.</p>
-                    
-                    <!-- Opções de Configuração -->
-                    <div class="config-group">
-                        <div class="config-item">
-                            <label class="config-label">Formato</label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="personFormat" value="visual" checked onchange="togglePersonQuantityVisibility()">
-                                    <span class="radio-label">Visual</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="personFormat" value="json" onchange="togglePersonQuantityVisibility()">
-                                    <span class="radio-label">JSON</span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="config-item">
-                            <label class="config-label">Sexo</label>
-                            <select id="personSexSelect" class="config-select">
-                                <option value="Indiferente" selected>Indiferente</option>
-                                <option value="Feminino">Feminino</option>
-                                <option value="Masculino">Masculino</option>
-                            </select>
-                        </div>
-
-                        <div class="config-item" id="quantityGeneratePerson" style="display: none;">
-                            <label class="config-label">Quantidade</label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="personQuantity" value="1" checked>
-                                    <span class="radio-label">1</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="personQuantity" value="5">
-                                    <span class="radio-label">5</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="personQuantity" value="10">
-                                    <span class="radio-label">10</span>
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="personQuantity" value="20">
-                                    <span class="radio-label">20</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <button class="btn-primary" id="generateNameBtn">
-                        <img class="btn-icon" src="assets/24px/ImgAtualizar.png" alt="Atualizar">
-                        Gerar
-                    </button>
-                    
-                    <div class="result-box" id="nameResult" style="display: none;">
-                        <p class="result-label">Nome Gerado:</p>
-                        <p class="result-value name-value" id="nameValue"></p>
-                    </div>
-
-                    <div class="result-box" id="birthDateResult" style="display: none;">
-                        <p class="result-label">Data de Nascimento:</p>
-                        <p class="result-value name-value" id="birthDateValue"></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Records Tab -->
-            <div class="tab-content" id="records-tab">
-                <div class="card card-large">
-                    <h2>Gerador de Registros</h2>
-                    <p class="description">Gere múltiplos registros completos e exporte em JSON.</p>
-                    
-                    <div class="input-group">
-                        <div class="input-wrapper">
-                            <label for="recordCount">Quantidade de Registros (1-25)</label>
-                            <input type="number" id="recordCount" min="1" max="25" value="10">
-                        </div>
-                        
-                        <button class="btn-primary" id="generateRecordsBtn">
-                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <polyline points="23 4 23 10 17 10"></polyline>
-                                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
-                            </svg>
-                            Gerar
-                        </button>
-                    </div>
-
-                    <div id="recordsContainer" style="display: none;">
-                        <button class="btn-success" id="downloadJsonBtn">
-                            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                                <polyline points="7 10 12 15 17 10"></polyline>
-                                <line x1="12" y1="15" x2="12" y2="3"></line>
-                            </svg>
-                            Baixar JSON
-                        </button>
-
-                        <div class="table-container">
-                            <table id="recordsTable">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Nome</th>
-                                        <th>CPF</th>
-                                        <th>Data Nascimento</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="recordsTableBody">
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <header class="top-bar">
+                <h2 id="page-title">Carregando...</h2>
+            </header>
+            
+            <div id="app-view"></div>
         </main>
     </div>
 
-    <!-- Scripts -->
+    <div id="toast" class="toast">Copiado com sucesso!</div>
+
     <script src="js/datas/names.js"></script>
     <script src="js/datas/surnames.js"></script>
-    <script src="js/generators/cpf.js"></script>
-    <script src="js/generators/person.js"></script>
+    <script src="js/datas/addresses.js"></script>
+    <script src="js/generators.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>
