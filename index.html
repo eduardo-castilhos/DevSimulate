@@ -3,48 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DocGen - Dev Power Tools</title>
+    <title>DocGen | Dev Power Tools</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div class="layout">
         <aside class="sidebar" id="sidebar">
             <div class="logo">
-                <img src="assets/logo.png" alt="" id="logoImg" onerror="this.style.display='none'">
+                <div class="logo-icon">
+                    <img src="assets/logo.png" alt="">
+                </div>
             </div>
             <nav class="nav-menu">
-                <a href="#/pessoa" class="nav-item">Gerador de Pessoa</a>
-                <a href="#/cpf" class="nav-item">Gerador de CPF</a>
-                <a href="#/cnpj" class="nav-item">Gerador de CNPJ</a>
-                <a href="#/rg" class="nav-item">Gerador de RG</a>
-                <a href="#/cartao" class="nav-item">Cartão de Crédito</a>
-                <a href="#/cep" class="nav-item">Gerador de CEP</a>
-                <a href="#/senha" class="nav-item">Gerador de Senha</a>
-                <a href="#/guid" class="nav-item">Gerador de GUID/UUID</a>
+                <a href="#/pessoa" class="nav-item"><i data-lucide="user"></i> Pessoa</a>
+                <a href="#/cpf" class="nav-item"><i data-lucide="file-text"></i> CPF</a>
+                <a href="#/cnpj" class="nav-item"><i data-lucide="building"></i> CNPJ</a>
+                <a href="#/rg" class="nav-item"><i data-lucide="contact"></i> RG</a>
+                <a href="#/cartao" class="nav-item"><i data-lucide="credit-card"></i> Cartão</a>
+                <a href="#/cep" class="nav-item"><i data-lucide="map-pin"></i> CEP</a>
+                <a href="#/senha" class="nav-item"><i data-lucide="lock"></i> Senha</a>
+                <a href="#/guid" class="nav-item"><i data-lucide="fingerprint"></i> GUID/UUID</a>
             </nav>
         </aside>
 
         <main class="main-content" id="main-content">
-            <button id="menu-toggle" class="menu-btn">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
             <header class="top-bar">
-                <h2 id="page-title">Carregando...</h2>
+                <button id="menu-toggle" class="menu-btn">
+                    <i data-lucide="menu"></i>
+                </button>
+                <h2 id="page-title">Gerador de Pessoa</h2>
             </header>
             
-            <div id="app-view"></div>
+            <div id="app-view" class="container"></div>
         </main>
     </div>
 
-    <div id="toast" class="toast">Copiado com sucesso!</div>
+    <div id="toast" class="toast">
+        <i data-lucide="check-circle"></i>
+        <span>Copiado com sucesso!</span>
+    </div>
 
     <script src="js/datas/names.js"></script>
     <script src="js/datas/surnames.js"></script>
     <script src="js/datas/addresses.js"></script>
     <script src="js/generators.js"></script>
     <script src="js/app.js"></script>
+    <script>
+        // Inicializa ícones após carregar a rota
+        lucide.createIcons();
+        window.addEventListener('hashchange', () => setTimeout(() => lucide.createIcons(), 50));
+    </script>
 </body>
 </html>
