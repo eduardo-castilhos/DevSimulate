@@ -115,4 +115,100 @@ const Generators = {
             uf: base.uf
         };
     },
+
+    pix: () => {
+        const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        let chave = '';
+        // Gera chave EVP (formato UUID-like aleatório)
+        for (let i = 0; i < 32; i++) {
+            chave += chars.charAt(Math.floor(Math.random() * chars.length));
+        }
+        return chave.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
+    },
+
+    contaBancaria: () => {
+        const bancos = ["001 - BB", "237 - Bradesco", "341 - Itaú", "033 - Santander", "260 - Nubank"];
+        return {
+            banco: bancos[Math.floor(Math.random() * bancos.length)],
+            agencia: Math.floor(1000 + Math.random() * 9000).toString(),
+            conta: Math.floor(100000 + Math.random() * 900000).toString() + "-" + Math.floor(Math.random() * 10)
+        };
+    },
+
+    boleto: () => {
+        const n = () => Math.floor(Math.random() * 9);
+        let linha = "";
+        for(let i=0; i<47; i++) linha += n();
+        return linha.replace(/(\d{5})(\d{5})(\d{5})(\d{6})(\d{5})(\d{6})(\d{1})(\d{14})/, '$1.$2 $3.$4 $5.$6 $7 $8');
+    },
+
+    ie: () => {
+        // Exemplo simplificado (padrão 9 dígitos)
+        let ie = "";
+        for(let i=0; i<9; i++) ie += Math.floor(Math.random() * 10);
+        return ie;
+    },
+
+    telefone: () => {
+        const ddd = [11, 21, 31, 41, 51, 61, 71, 81][Math.floor(Math.random() * 8)];
+        const num = Math.floor(900000000 + Math.random() * 100000000);
+        return `(${ddd}) ${num.toString().replace(/(\d{5})(\d{4})/, '$1-$2')}`;
+    },
+
+    ip: (version = 'v4') => {
+        if (version === 'v4') {
+            return Array.from({length: 4}, () => Math.floor(Math.random() * 256)).join('.');
+        }
+        const hex = "0123456789abcdef";
+        const group = () => Array.from({length: 4}, () => hex[Math.floor(Math.random() * 16)]).join('');
+        return Array.from({length: 8}, group).join(':');
+    },
+
+    mac: () => {
+        const hex = "0123456789ABCDEF";
+        const pair = () => hex[Math.floor(Math.random() * 16)] + hex[Math.floor(Math.random() * 16)];
+        return Array.from({length: 6}, pair).join(':');
+    },
+
+    userAgent: () => {
+        const agents = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
+            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
+        ];
+        return agents[Math.floor(Math.random() * agents.length)];
+    },
+
+    lorem: () => {
+        const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+        return text;
+    },
+
+    cor: () => {
+        const hex = Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+        return `#${hex.toUpperCase()}`;
+    },
+
+    coordenadas: () => {
+        const lat = (Math.random() * ((-10) - (-30)) + (-30)).toFixed(6);
+        const lng = (Math.random() * ((-35) - (-60)) + (-60)).toFixed(6);
+        return { latitude: lat, longitude: lng };
+    },
+
+    placa: () => {
+        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const nums = "0123456789";
+        // Padrão Mercosul: AAA1A11
+        let p = letters[Math.floor(Math.random()*26)] + letters[Math.floor(Math.random()*26)] + letters[Math.floor(Math.random()*26)];
+        p += nums[Math.floor(Math.random()*10)];
+        p += letters[Math.floor(Math.random()*26)];
+        p += nums[Math.floor(Math.random()*10)] + nums[Math.floor(Math.random()*10)];
+        return p;
+    },
+
+    renavam: () => {
+        let n = "";
+        for(let i=0; i<11; i++) n += Math.floor(Math.random() * 10);
+        return n;
+    }
 };
