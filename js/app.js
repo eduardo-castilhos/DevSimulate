@@ -43,7 +43,8 @@ const App = {
             mac: "MAC Address", userAgent: "User Agent", senha: "Gerador de Senha",
             guid: "GUID/UUID", cep: "Consulta de CEP", lorem: "Lorem Ipsum",
             cor: "Seletor de Cores", coordenadas: "Coordenadas & Mapas",
-            placa: "Placa Mercosul", renavam: "RENAVAM"
+            placa: "Placa Mercosul", renavam: "RENAVAM",
+            qrcode: "Gerador de QR Code"
         };
         title.innerText = titles[type] || "Gerador";
 
@@ -51,6 +52,7 @@ const App = {
         if (type === 'lorem') return this.renderLorem(view);
         if (type === 'cor') return this.renderColorPicker(view);
         if (type === 'coordenadas') return this.renderMaps(view);
+        if (type === 'qrcode') return this.renderQRCode(view);
 
         // Layout Padrão para Geradores Simples
         let filterSection = `
@@ -89,6 +91,35 @@ const App = {
             </div>`;
 
         view.innerHTML = filterSection;
+    },
+
+    renderQRCode(container){
+        container.innerHTML = `
+            <div class="card">
+                <div class="group">
+                    <label>Conteúdo (Link ou Texto)</label>
+                    <div class="field-box">
+                        <div class="field-content">
+                            <input type="text" id="qr-input" placeholder="https://google.com" spellcheck="false">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn-primary" style="margin-top:20px" onclick="App.generateQR()">Gerar QR Code</button>
+                <div id="qr-result" style="margin-top:20px; text-align:center; display:none;">
+                    <img id="qr-img" src="" alt="QR Code" style="border: 10px solid white; border-radius: 8px; box-shadow: var(--shadow);">
+                </div>
+            </div>`;
+
+        if(window.lucide) lucide.createIcons();
+    },
+
+    generateQR(){
+        const val = document.getElementById('qr-input').value;
+        if(!val) return alert("Digite um link ou texto!");
+        const img = document.getElementById('qr-img');
+        const res = document.getElementById('qr-result');
+        img.src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(val)}`;
+        res.style.display = 'block';
     },
 
     renderLorem(container) {
