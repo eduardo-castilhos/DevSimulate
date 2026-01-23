@@ -1,5 +1,4 @@
 const Generators = {
-    // CPF corrigido baseado no seu original
     cpf: () => {
         const n = () => Math.floor(Math.random() * 10);
         let a = Array.from({ length: 9 }, n);
@@ -34,7 +33,6 @@ const Generators = {
         let pool = sexo === "Masculino" ? firstNames.masculino : 
                    sexo === "Feminino" ? firstNames.feminino : 
                    [...firstNames.masculino, ...firstNames.feminino];
-        
         const fn = pool[Math.floor(Math.random() * pool.length)];
         const sn1 = lastNames[Math.floor(Math.random() * lastNames.length)];
         const sn2 = lastNames[Math.floor(Math.random() * lastNames.length)];
@@ -48,50 +46,41 @@ const Generators = {
         return `${d}/${m}/${y}`;
     },
     
-    guid: () => {
-        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-            var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-            return v.toString(16);
-        });
-    },
+    guid: () => 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+        const r = Math.random() * 16 | 0;
+        return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+    }),
 
     getSigno: (data) => {
         const [d, m] = data.split('/').map(Number);
-        if ((m == 3 && d >= 21) || (m == 4 && d <= 19)) return "Áries";
-        if ((m == 4 && d >= 20) || (m == 5 && d <= 20)) return "Touro";
-        if ((m == 5 && d >= 21) || (m == 6 && d <= 20)) return "Gêmeos";
-        if ((m == 6 && d >= 21) || (m == 7 && d <= 22)) return "Câncer";
-        if ((m == 7 && d >= 23) || (m == 8 && d <= 22)) return "Leão";
-        if ((m == 8 && d >= 23) || (m == 9 && d <= 22)) return "Virgem";
-        if ((m == 9 && d >= 23) || (m == 10 && d <= 22)) return "Libra";
-        if ((m == 10 && d >= 23) || (m == 11 && d <= 21)) return "Escorpião";
-        if ((m == 11 && d >= 22) || (m == 12 && d <= 21)) return "Sagitário";
-        if ((m == 12 && d >= 22) || (m == 1 && d <= 19)) return "Capricórnio";
-        if ((m == 1 && d >= 20) || (m == 2 && d <= 18)) return "Aquário";
-        return "Peixes";
+        const rules = [
+            {m:3, d:21, n:"Áries"}, {m:4, d:20, n:"Touro"}, {m:5, d:21, n:"Gêmeos"},
+            {m:6, d:21, n:"Câncer"}, {m:7, d:23, n:"Leão"}, {m:8, d:23, n:"Virgem"},
+            {m:9, d:23, n:"Libra"}, {m:10, d:23, n:"Escorpião"}, {m:11, d:22, n:"Sagitário"},
+            {m:12, d:22, n:"Capricórnio"}, {m:1, d:20, n:"Aquário"}, {m:2, d:19, n:"Peixes"}
+        ];
+        // Lógica simplificada: retorna o signo baseado no mês se o dia for maior ou igual ao limite
+        const s = rules.find((r, i) => {
+            const next = rules[(i + 1) % 12];
+            return (m === r.m && d >= r.d) || (m === next.m && d < next.d);
+        });
+        return s ? s.n : "Peixes";
     },
 
     cartao: () => {
-        // Algoritmo de Luhn para gerar número de cartão válido (Visa)
-        let n = [4]; // Visa começa com 4
+        let n = [4]; // Visa
         while (n.length < 15) n.push(Math.floor(Math.random() * 10));
-        
         let s = 0;
         for (let i = 0; i < n.length; i++) {
-            let d = parseInt(n[i]);
+            let d = n[i];
             if (i % 2 === 0) { d *= 2; if (d > 9) d -= 9; }
             s += d;
         }
         n.push((10 - (s % 10)) % 10);
-        
-        const numero = n.join('').replace(/(\d{4})/g, '$1 ').trim();
-        const validade = `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}/${2025 + Math.floor(Math.random() * 5)}`;
-        const cvv = Math.floor(Math.random() * 899 + 100);
-        
         return {
-            numero_cartao: numero,
-            validade: validade,
-            cvv: cvv,
+            numero_cartao: n.join('').replace(/(\d{4})/g, '$1 ').trim(),
+            validade: `${String(Math.floor(Math.random() * 12) + 1).padStart(2, '0')}/20${25 + Math.floor(Math.random() * 5)}`,
+            cvv: Math.floor(Math.random() * 899 + 100),
             bandeira: "Visa"
         };
     },
@@ -118,97 +107,73 @@ const Generators = {
 
     pix: () => {
         const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
-        let chave = '';
-        // Gera chave EVP (formato UUID-like aleatório)
-        for (let i = 0; i < 32; i++) {
-            chave += chars.charAt(Math.floor(Math.random() * chars.length));
-        }
-        return chave.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
+        let k = '';
+        for (let i = 0; i < 32; i++) k += chars.charAt(Math.floor(Math.random() * chars.length));
+        return k.replace(/(.{8})(.{4})(.{4})(.{4})(.{12})/, '$1-$2-$3-$4-$5');
     },
 
     contaBancaria: () => {
-        const bancos = ["001 - BB", "237 - Bradesco", "341 - Itaú", "033 - Santander", "260 - Nubank"];
+        const b = ["001 - BB", "237 - Bradesco", "341 - Itaú", "033 - Santander", "260 - Nubank"];
         return {
-            banco: bancos[Math.floor(Math.random() * bancos.length)],
+            banco: b[Math.floor(Math.random() * b.length)],
             agencia: Math.floor(1000 + Math.random() * 9000).toString(),
             conta: Math.floor(100000 + Math.random() * 900000).toString() + "-" + Math.floor(Math.random() * 10)
         };
     },
 
-    boleto: () => {
-        const n = () => Math.floor(Math.random() * 9);
-        let linha = "";
-        for(let i=0; i<47; i++) linha += n();
-        return linha.replace(/(\d{5})(\d{5})(\d{5})(\d{6})(\d{5})(\d{6})(\d{1})(\d{14})/, '$1.$2 $3.$4 $5.$6 $7 $8');
+    ip: (v = 'v4') => {
+        if (v === 'v4') return Array.from({length: 4}, () => Math.floor(Math.random() * 256)).join('.');
+        const h = "0123456789abcdef";
+        const g = () => Array.from({length: 4}, () => h[Math.floor(Math.random() * 16)]).join('');
+        return Array.from({length: 8}, g).join(':');
     },
 
-    ie: () => {
-        // Exemplo simplificado (padrão 9 dígitos)
-        let ie = "";
-        for(let i=0; i<9; i++) ie += Math.floor(Math.random() * 10);
-        return ie;
+    mac: () => {
+        const h = "0123456789ABCDEF";
+        const p = () => h[Math.floor(Math.random() * 16)] + h[Math.floor(Math.random() * 16)];
+        return Array.from({length: 6}, p).join(':');
+    },
+
+    userAgent: () => {
+        const a = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15"
+        ];
+        return a[Math.floor(Math.random() * a.length)];
     },
 
     telefone: () => {
         const ddd = [11, 21, 31, 41, 51, 61, 71, 81][Math.floor(Math.random() * 8)];
-        const num = Math.floor(900000000 + Math.random() * 100000000);
-        return `(${ddd}) ${num.toString().replace(/(\d{5})(\d{4})/, '$1-$2')}`;
-    },
-
-    ip: (version = 'v4') => {
-        if (version === 'v4') {
-            return Array.from({length: 4}, () => Math.floor(Math.random() * 256)).join('.');
-        }
-        const hex = "0123456789abcdef";
-        const group = () => Array.from({length: 4}, () => hex[Math.floor(Math.random() * 16)]).join('');
-        return Array.from({length: 8}, group).join(':');
-    },
-
-    mac: () => {
-        const hex = "0123456789ABCDEF";
-        const pair = () => hex[Math.floor(Math.random() * 16)] + hex[Math.floor(Math.random() * 16)];
-        return Array.from({length: 6}, pair).join(':');
-    },
-
-    userAgent: () => {
-        const agents = [
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
-            "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36"
-        ];
-        return agents[Math.floor(Math.random() * agents.length)];
-    },
-
-    lorem: () => {
-        const text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
-        return text;
-    },
-
-    cor: () => {
-        const hex = Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
-        return `#${hex.toUpperCase()}`;
-    },
-
-    coordenadas: () => {
-        const lat = (Math.random() * ((-10) - (-30)) + (-30)).toFixed(6);
-        const lng = (Math.random() * ((-35) - (-60)) + (-60)).toFixed(6);
-        return { latitude: lat, longitude: lng };
+        return `(${ddd}) 9${Math.floor(1000 + Math.random() * 9000)}-${Math.floor(1000 + Math.random() * 9000)}`;
     },
 
     placa: () => {
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        const nums = "0123456789";
-        // Padrão Mercosul: AAA1A11
-        let p = letters[Math.floor(Math.random()*26)] + letters[Math.floor(Math.random()*26)] + letters[Math.floor(Math.random()*26)];
-        p += nums[Math.floor(Math.random()*10)];
-        p += letters[Math.floor(Math.random()*26)];
-        p += nums[Math.floor(Math.random()*10)] + nums[Math.floor(Math.random()*10)];
-        return p;
+        const l = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        const n = "0123456789";
+        return l[Math.floor(Math.random()*26)] + l[Math.floor(Math.random()*26)] + l[Math.floor(Math.random()*26)] + 
+               n[Math.floor(Math.random()*10)] + l[Math.floor(Math.random()*26)] + n[Math.floor(Math.random()*10)] + n[Math.floor(Math.random()*10)];
     },
 
-    renavam: () => {
-        let n = "";
-        for(let i=0; i<11; i++) n += Math.floor(Math.random() * 10);
-        return n;
-    }
+    renavam: () => Array.from({length: 11}, () => Math.floor(Math.random() * 10)).join(''),
+    
+    ie: () => Array.from({length: 9}, () => Math.floor(Math.random() * 10)).join(''),
+
+    coordenadas: () => ({
+        latitude: (Math.random() * ((-10) - (-30)) + (-30)).toFixed(6),
+        longitude: (Math.random() * ((-35) - (-60)) + (-60)).toFixed(6)
+    }),
+
+    validadorJson: (input) => {
+        try {
+            const parsed = JSON.parse(input);
+            return { valid: true, data: parsed };
+        } catch (e) {
+            return { valid: false, error: e.message };
+        }
+    },
+
+    validadorEmail: (input) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(input);
+    },
 };

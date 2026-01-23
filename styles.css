@@ -73,7 +73,7 @@ body {
     width: 100%;
 }
 
-.nav-menu { display: flex; flex-direction: column; gap: 8px; }
+.nav-menu { display: flex; flex-direction: column; gap: 2px; }
 
 .nav-item {
     display: flex;
@@ -101,6 +101,50 @@ body {
     box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
 }
 
+.nav-item {
+    padding: 8px 12px; /* Reduzido de 12px para 8px */
+    margin-bottom: 2px;
+    font-size: 0.9rem;
+}
+
+.nav-category {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    opacity: 0.6;
+}
+
+.nav-separator {
+    height: 1px;
+    background: rgba(255,255,255,0.1);
+    margin: 15px 0;
+}
+
+.sidebar-footer {
+    padding: 15px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.sidebar-footer a {
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    text-decoration: none;
+}
+
+.info-box {
+    background: #e2e8f0;
+    padding: 15px;
+    border-radius: var(--radius);
+    font-size: 0.85rem;
+    margin-top: 20px;
+    border-left: 4px solid var(--primary);
+}
+
 /* Layout Principal */
 .main-content { 
     margin-left: var(--sidebar-w); 
@@ -125,13 +169,13 @@ body {
 
 .container { padding: 40px; max-width: 1100px; margin: 0 auto; }
 
-.nav-category {
-    font-size: 11px;
-    font-weight: 700;
+.nav-sub-category{
+    font-size: 12px;
+    font-weight: 600;
     color: #ffffff;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    margin: 20px 0 8px 16px;
+    margin: 5px 0 8px 7px;
     opacity: 0.7;
 }
 
@@ -385,4 +429,72 @@ select:focus { outline: none; border-color: var(--primary); }
 }
 #lorem-qty {
     -moz-appearance: textfield;
+}
+
+body.dark-mode {
+    /* Fundo geral em cinza ardósia */
+    --bg: #334155; 
+    --text-main: #ffffff;
+    --text-muted: #cbd5e1;
+    --card-bg: #1e293b;
+    --border-color: #475569;
+}
+
+/* Ajuste nos Cards quando em modo dark */
+body.dark-mode .card,
+body.dark-mode .field-box,
+body.dark-mode .json-box {
+    background: var(--card-bg);
+    border-color: var(--border-color);
+    color: white;
+}
+
+body.dark-mode .field-content span {
+    color: #f1f5f9;
+}
+
+body.dark-mode .nav-category {
+    color: #94a3b8;
+}
+/* Botão de Troca de Tema */
+.theme-btn {
+    background: transparent;
+    border: 1px solid #e2e8f0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--text-muted);
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s;
+}
+
+body.dark-mode .top-bar h2,
+body.dark-mode .menu-btn,
+body.dark-mode .theme-btn {
+    color: white !important;
+}
+
+body.dark-mode .theme-btn {
+    border-color: var(--border-color) !important;
+    color: #fbbf24 !important; /* Sol Amarelo */
+}
+
+body.dark-mode .top-bar {
+    background: #1e293b;
+    color: white;
+    border-bottom: 1px solid var(--border-color);
+}
+
+body.dark-mode .sidebar {
+    background: #0f172a;
+}
+
+body.dark-mode select{
+    color: black;
+}
+
+body.dark-mode .info-box{
+        background: transparent;
 }

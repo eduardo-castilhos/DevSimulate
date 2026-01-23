@@ -20,27 +20,28 @@
             </div>
             
             <nav class="nav-menu">
-                <div class="nav-category">Identidade</div>
+                <div class="nav-category">Geradores</div>
+                <div class="nav-sub-category">Identidade</div>
                 <a href="#/pessoa" class="nav-item"><i data-lucide="user"></i> Pessoa</a>
                 <a href="#/cpf" class="nav-item"><i data-lucide="file-text"></i> CPF</a>
                 <a href="#/cnpj" class="nav-item"><i data-lucide="building"></i> CNPJ</a>
                 <a href="#/rg" class="nav-item"><i data-lucide="contact"></i> RG</a>
 
-                <div class="nav-category">Financeiro</div>
+                <div class="nav-sub-category">Financeiro</div>
                 <a href="#/pix" class="nav-item"><i data-lucide="qr-code"></i> Chave PIX</a>
                 <a href="#/cartao" class="nav-item"><i data-lucide="credit-card"></i> Cartão</a>
                 <a href="#/contaBancaria" class="nav-item"><i data-lucide="landmark"></i> Conta Bancária</a>
                 <a href="#/boleto" class="nav-item"><i data-lucide="barcode"></i> Boleto</a>
                 <a href="#/ie" class="nav-item"><i data-lucide="hash"></i> Inscrição Estadual</a>
 
-                <div class="nav-category">Desenvolvimento</div>
+                <div class="nav-sub-category">Desenvolvimento</div>
                 <a href="#/ip" class="nav-item"><i data-lucide="globe"></i> Endereço IP</a>
                 <a href="#/mac" class="nav-item"><i data-lucide="cpu"></i> MAC Address</a>
                 <a href="#/userAgent" class="nav-item"><i data-lucide="chrome"></i> User Agent</a>
                 <a href="#/senha" class="nav-item"><i data-lucide="lock"></i> Senha</a>
                 <a href="#/guid" class="nav-item"><i data-lucide="fingerprint"></i> GUID/UUID</a>
 
-                <div class="nav-category">Utilidades</div>
+                <div class="nav-sub-category">Utilidades</div>
                 <a href="#/qrcode" class="nav-item"><i data-lucide="qr-code"></i> QR Code</a>
                 <a href="#/cep" class="nav-item"><i data-lucide="map-pin"></i> CEP</a>
                 <a href="#/lorem" class="nav-item"><i data-lucide="align-left"></i> Lorem Ipsum</a>
@@ -48,7 +49,22 @@
                 <a href="#/coordenadas" class="nav-item"><i data-lucide="map"></i> Coordenadas</a>
                 <a href="#/placa" class="nav-item"><i data-lucide="car"></i> Placa Veicular</a>
                 <a href="#/renavam" class="nav-item"><i data-lucide="file-spreadsheet"></i> RENAVAM</a>
+
+                <div class="nav-separator"></div>
+
+                <div class="nav-category">Validadores</div>
+                <a href="#/validador-cpf" class="nav-item"><i data-lucide="check-circle"></i> Validar CPF</a>
+                <a href="#/validador-cnpj" class="nav-item"><i data-lucide="check-square"></i> Validar CNPJ</a>
+                <a href="#/validador-json" class="nav-item"><i data-lucide="code"></i> Validar JSON</a>
+                <a href="#/validador-email" class="nav-item"><i data-lucide="mail"></i> Validar E-mail</a>
             </nav>
+
+            <div class="sidebar-footer">
+                <a href="#/sobre">Sobre</a>
+                <a href="#/privacidade">Privacidade</a>
+                <a href="#/termos">Termos</a>
+                <a href="#/contato">Contato</a>
+            </div>
         </aside>
 
         <main class="main-content" id="main-content">
@@ -56,6 +72,11 @@
                 <button id="menu-toggle" class="menu-btn">
                     <i data-lucide="menu"></i>
                 </button>
+
+                <button id="theme-toggle" class="theme-btn">
+                    <i data-lucide="moon" id="theme-icon"></i>
+                </button>
+                
                 <h2 id="page-title">Gerador de Pessoa</h2>
             </header>
             
