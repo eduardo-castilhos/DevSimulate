@@ -11,6 +11,14 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
+    <script>
+        // Bloqueia o render para aplicar o tema antes de mostrar a página
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || theme === null) {
+            document.body.classList.add('dark-mode');
+        }
+    </script>
+    
     <div class="layout">
         <aside class="sidebar" id="sidebar">
             <div class="logo">
@@ -94,6 +102,7 @@
     <script src="js/datas/addresses.js"></script>
     <script src="js/generators.js"></script>
     <script src="js/app.js"></script>
+
     <script>
         // Inicializa ícones após carregar a rota
         lucide.createIcons();

@@ -77,14 +77,20 @@ const App = {
 
     initTheme() {
         const themeBtn = document.getElementById('theme-toggle');
-        if (!themeBtn) return; // Segurança caso o botão não exista no HTML
+        if (!themeBtn) return;
 
-        // Verifica o cache (localStorage)
+        // Verifica o cache
         const savedTheme = localStorage.getItem('theme');
         
-        if (savedTheme === 'dark') {
+        // Se for a primeira vez (null) ou se estiver salvo como 'dark'
+        if (savedTheme === 'dark' || savedTheme === null) {
             document.body.classList.add('dark-mode');
             this.updateThemeIcon(true);
+            // Garante que o cache tenha 'dark' na primeira visita
+            if (savedTheme === null) localStorage.setItem('theme', 'dark');
+        } else {
+            document.body.classList.remove('dark-mode');
+            this.updateThemeIcon(false);
         }
 
         themeBtn.addEventListener('click', () => {
@@ -95,10 +101,15 @@ const App = {
     },
 
     updateThemeIcon(isDark) {
-        const themeIcon = document.querySelector('#theme-toggle i');
-        if (themeIcon) {
-            themeIcon.setAttribute('data-lucide', isDark ? 'sun' : 'moon');
-            if (window.lucide) lucide.createIcons();
+        const themeBtn = document.getElementById('theme-toggle');
+        if (themeBtn) {
+            // Trocamos o ícone e RE-INICIALIZAMOS o Lucide
+            themeBtn.innerHTML = isDark ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
+            
+            // Isso aqui é o que faz o ícone aparecer de verdade!
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         }
     },
 

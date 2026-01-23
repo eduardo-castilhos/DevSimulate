@@ -432,11 +432,10 @@ select:focus { outline: none; border-color: var(--primary); }
 }
 
 body.dark-mode {
-    /* Fundo geral em cinza ardósia */
-    --bg: #334155; 
-    --text-main: #ffffff;
+    --bg: #334155;            /* Cinza ardósia médio */
+    --text-main: #ffffff;     /* Texto branco */
     --text-muted: #cbd5e1;
-    --card-bg: #1e293b;
+    --card-bg: #1e293b;       /* Card cinza azulado escuro */
     --border-color: #475569;
 }
 
@@ -487,14 +486,22 @@ body.dark-mode .top-bar {
     border-bottom: 1px solid var(--border-color);
 }
 
-body.dark-mode .sidebar {
-    background: #0f172a;
+body.dark-mode .top-bar h2 {
+    color: white !important;
 }
 
-body.dark-mode select{
-    color: black;
+body.dark-mode .sidebar {
+    background: #0f172a;      /* Quase preto para contraste com o cinza do fundo */
 }
 
 body.dark-mode .info-box{
         background: transparent;
+}
+
+body.dark-mode textarea, 
+body.dark-mode input, 
+body.dark-mode select {
+    background-color: #0f172a;
+    color: white;
+    border: 1px solid var(--border-color);
 }
