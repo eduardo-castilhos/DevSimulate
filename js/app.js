@@ -3,13 +3,31 @@ const App = {
 
     // Textos informativos para SEO e conformidade com o AdSense
     descriptions: {
-        pessoa: "Gera perfis completos com nomes, documentos e endereços baseados em dados estatísticos brasileiros. O algoritmo seleciona nomes e sobrenomes de bases reais para garantir verossimilhança em testes de software.",
-        cpf: "O CPF (Cadastro de Pessoas Físicas) utiliza um algoritmo de Módulo 11. Os nove primeiros dígitos são aleatórios e os dois últimos são calculados para garantir a integridade do documento.",
-        cnpj: "O Cadastro Nacional da Pessoa Jurídica (CNPJ) consiste em 14 dígitos. O cálculo utiliza pesos matemáticos específicos para validar se o número é estruturalmente correto.",
-        'validador-cpf': "Esta ferramenta utiliza o cálculo oficial do dígito verificador para confirmar se um CPF inserido é matematicamente válido perante as regras da Receita Federal.",
-        'validador-cnpj': "Valida a estrutura de 14 dígitos de um CNPJ empresarial, verificando se os dígitos de controle correspondem ao cálculo dos 12 dígitos iniciais.",
-        'validador-json': "Analisa a sintaxe de um código JSON. Se o código for válido, ele identifica a estrutura de objetos e arrays; se for inválido, aponta erro de formatação.",
-        'validador-email': "Verifica se o endereço eletrônico segue o padrão estabelecido pelas RFCs de comunicação, garantindo a presença de usuário, @ e domínio válido."
+        pessoa: "Gera perfis completos com nomes, documentos e endereços baseados em dados estatísticos brasileiros.",
+        cpf: "O CPF utiliza um algoritmo de Módulo 11. Gere documentos válidos para testes de software.",
+        cnpj: "Gere CNPJs empresariais válidos com pesos matemáticos específicos para validação.",
+        rg: "Gerador de RG aleatório para preenchimento de formulários em ambientes de homologação.",
+        pix: "Gere chaves PIX aleatórias (CPF, E-mail, Celular ou EVP) para testes de fluxos de pagamento.",
+        cartao: "Gerador de números de cartão de crédito válidos para testes de checkout e e-commerce.",
+        contaBancaria: "Gere dados de contas bancárias de diversos bancos brasileiros para validação de sistemas.",
+        boleto: "Simulador de linhas digitáveis de boletos bancários para testes de integração.",
+        ie: "Gerador de Inscrição Estadual de acordo com as regras de cada estado brasileiro.",
+        ip: "Gerador de endereços IPv4 aleatórios para testes de rede e segurança.",
+        mac: "Gere endereços MAC (Physical Address) de forma aleatória e rápida.",
+        userAgent: "Gere strings de User Agent de diversos navegadores e sistemas operacionais.",
+        senha: "Gerador de senhas fortes com critérios customizáveis de segurança.",
+        guid: "Gerador de Identificadores Únicos Globais (GUID/UUID) v4.",
+        qrcode: "Ferramenta para gerar QR Codes a partir de textos ou links dinâmicos.",
+        cep: "Gere CEPs brasileiros válidos vinculados a endereços reais para testes de logística.",
+        lorem: "Gerador de texto Lorem Ipsum para preenchimento de layouts e design.",
+        cor: "Gerador de cores aleatórias em formato Hexadecimal para web design.",
+        coordenadas: "Gere coordenadas geográficas (Latitude e Longitude) aleatórias.",
+        placa: "Gerador de placas veiculares no padrão Mercosul e antigo.",
+        renavam: "Gere códigos RENAVAM válidos para testes de sistemas de trânsito.",
+        'validador-cpf': "Verifique se um CPF é matematicamente válido perante as regras da Receita Federal.",
+        'validador-cnpj': "Valida a estrutura de 14 dígitos de um CNPJ empresarial.",
+        'validador-json': "Analisa, formata e valida a sintaxe de códigos JSON em tempo real.",
+        'validador-email': "Verifica se o endereço eletrônico segue o padrão das RFCs de comunicação."
     },
 
     disclaimer: `
@@ -48,6 +66,35 @@ const App = {
             </div>`
     },
 
+    // --- IMPLEMENTAÇÃO DA FUNÇÃO UPDATESEO ---
+    updateSEO(route) {
+        const titles = {
+            pessoa: "Gerador de Pessoa", cpf: "Gerador de CPF", cnpj: "Gerador de CNPJ", rg: "Gerador de RG",
+            pix: "Gerador de Chave PIX", cartao: "Cartão de Crédito", contaBancaria: "Conta Bancária",
+            boleto: "Gerador de Boleto", ie: "Inscrição Estadual", ip: "Endereço IP",
+            mac: "MAC Address", userAgent: "User Agent", senha: "Gerador de Senha",
+            guid: "GUID/UUID", cep: "Consulta de CEP", lorem: "Lorem Ipsum",
+            cor: "Seletor de Cores", coordenadas: "Coordenadas & Mapas",
+            placa: "Placa Mercosul", renavam: "RENAVAM", qrcode: "Gerador de QR Code",
+            'validador-cpf': "Validador de CPF", 'validador-cnpj': "Validador de CNPJ",
+            'validador-json': "Validador de JSON", 'validador-email': "Validador de E-mail",
+            sobre: "Sobre o DevSimulate", privacidade: "Política de Privacidade", 
+            termos: "Termos de Uso", contato: "Contato"
+        };
+
+        const title = titles[route] || "Ferramentas para Desenvolvedores";
+        const description = this.descriptions[route] || "Ferramentas gratuitas para auxílio em desenvolvimento e testes.";
+
+        // Atualiza o <title> do HTML
+        document.title = `${title} | DevSimulate`;
+
+        // Atualiza a Meta Description dinamicamente para o Google
+        const metaDescription = document.querySelector('meta[name="description"]');
+        if (metaDescription) {
+            metaDescription.setAttribute('content', description);
+        }
+    },
+
     init() {
         window.addEventListener('hashchange', () => this.route());
         window.addEventListener('load', () => this.route());
@@ -79,14 +126,11 @@ const App = {
         const themeBtn = document.getElementById('theme-toggle');
         if (!themeBtn) return;
 
-        // Verifica o cache
         const savedTheme = localStorage.getItem('theme');
         
-        // Se for a primeira vez (null) ou se estiver salvo como 'dark'
         if (savedTheme === 'dark' || savedTheme === null) {
             document.body.classList.add('dark-mode');
             this.updateThemeIcon(true);
-            // Garante que o cache tenha 'dark' na primeira visita
             if (savedTheme === null) localStorage.setItem('theme', 'dark');
         } else {
             document.body.classList.remove('dark-mode');
@@ -103,10 +147,7 @@ const App = {
     updateThemeIcon(isDark) {
         const themeBtn = document.getElementById('theme-toggle');
         if (themeBtn) {
-            // Trocamos o ícone e RE-INICIALIZAMOS o Lucide
             themeBtn.innerHTML = isDark ? '<i data-lucide="sun"></i>' : '<i data-lucide="moon"></i>';
-            
-            // Isso aqui é o que faz o ícone aparecer de verdade!
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
@@ -119,12 +160,15 @@ const App = {
         const view = document.getElementById('app-view');
         const title = document.getElementById('page-title');
 
+        // CHAMA O UPDATESEO AO MUDAR DE ROTA
+        this.updateSEO(type);
+
         document.querySelectorAll('.nav-item').forEach(el => 
             el.classList.toggle('active', el.getAttribute('href') === hash));
 
         if (['sobre', 'privacidade', 'termos', 'contato'].includes(type)) {
             this.renderStaticPage(type);
-            return; // Importante parar a execução aqui
+            return;
         }
 
         const titles = {
@@ -138,16 +182,15 @@ const App = {
             'validador-cpf': "Validador de CPF", 'validador-cnpj': "Validador de CNPJ",
             'validador-json': "Validador de JSON", 'validador-email': "Validador de E-mail"
         };
+        
         title.innerText = titles[type] || "Gerador";
 
-        // Renderização Dinâmica conforme o tipo
         if (type.startsWith('validador-')) return this.renderValidatorPage(type, view);
         if (type === 'lorem') return this.renderLorem(view);
         if (type === 'cor') return this.renderColorPicker(view);
         if (type === 'coordenadas') return this.renderMaps(view);
         if (type === 'qrcode') return this.renderQRCode(view);
 
-        // Layout Padrão para Geradores
         this.renderDefaultGenerator(type, view);
     },
 
@@ -161,8 +204,6 @@ const App = {
         };
         
         document.getElementById('page-title').innerText = titles[type] || "Informação";
-
-        // Aqui pegamos o HTML formatado que está lá no topo do seu App.staticPages
         const htmlContent = this.staticPages[type] || "<p>Conteúdo não encontrado.</p>";
 
         view.innerHTML = `
@@ -253,13 +294,8 @@ const App = {
         }
 
         try {
-            // Converte string para Objeto
             const obj = JSON.parse(rawValue);
-            
-            // Converte Objeto de volta para String com indentação de 4 espaços
             const formatted = JSON.stringify(obj, null, 4);
-            
-            // Devolve para o campo de texto
             inputField.value = formatted;
 
             resultDiv.innerHTML = `
@@ -272,7 +308,6 @@ const App = {
             
             if(window.lucide) lucide.createIcons();
         } catch (e) {
-            // Se der erro, mostra onde está o erro no JSON
             resultDiv.innerHTML = `
                 <div style="color:#dc2626; background:#fef2f2; padding:15px; border-radius:8px; border:1px solid #fbd5d5;">
                     <strong>❌ JSON Inválido:</strong> ${e.message}
@@ -293,8 +328,11 @@ const App = {
                 isValid = true;
             } else if (type === 'validador-email') {
                 isValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(input);
+            } else if (type === 'validador-cpf') {
+                isValid = Validators.calcCpf(input.replace(/\D/g, ''));
+            } else if (type === 'validador-cnpj') {
+                isValid = Validators.calcCnpj(input.replace(/\D/g, ''));
             }
-            // ... outras validações (CPF/CNPJ)
         } catch (e) {
             isValid = false;
         }
@@ -305,369 +343,165 @@ const App = {
     },
 
     renderQRCode(container){
-
         container.innerHTML = `
-
             <div class="card">
-
                 <div class="group">
-
                     <label>Conteúdo (Link ou Texto)</label>
-
                     <div class="field-box">
-
                         <div class="field-content">
-
                             <input type="text" id="qr-input" placeholder="https://google.com" spellcheck="false">
-
                         </div>
-
                     </div>
-
                 </div>
-
                 <button class="btn-primary" style="margin-top:20px" onclick="App.generateQR()">Gerar QR Code</button>
-
                 <div id="qr-result" style="margin-top:20px; text-align:center; display:none;">
-
                     <img id="qr-img" src="" alt="QR Code" style="border: 10px solid white; border-radius: 8px; box-shadow: var(--shadow);">
-
                 </div>
-
             </div>`;
-
-
-
         if(window.lucide) lucide.createIcons();
-
     },
-
-
 
     generateQR(){
-
         const val = document.getElementById('qr-input').value;
-
         if(!val) return alert("Digite um link ou texto!");
-
         const img = document.getElementById('qr-img');
-
         const res = document.getElementById('qr-result');
-
         img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(val)}`;
-
         res.style.display = 'block';
-
     },
-
-
 
     renderLorem(container) {
-
         container.innerHTML = `
-
             <div class="card">
-
                 <div class="config-row">
-
                     <div class="group">
-
                         <label>Tipo de Saída</label>
-
                         <select id="lorem-type" class="select-modern">
-
                             <option value="chars">Caracteres</option>
-
                             <option value="words">Palavras</option>
-
                             <option value="paragraphs">Parágrafos</option>
-
                         </select>
-
                     </div>
-
-
-
                     <div class="group">
-
                         <label>Quantidade</label>
-
                         <div class="field-box">
-
                             <div class="field-content">
-
                                 <input type="number" id="lorem-qty" value="500" min="1" max="10000" spellcheck="false">
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
-               
-
                 <button class="btn-primary" onclick="App.generateLorem()">Gerar Lorem Ipsum</button>
-
-
-
                 <div id="lorem-result-container" class="json-box" style="margin-top:20px; display:none; position: relative;">
-
                     <button class="btn-copy-all" onclick="App.copyText(document.getElementById('lorem-text').innerText)" style="position: absolute; right: 15px; top: 15px;">
-
                         Copiar Tudo
-
                     </button>
-
                     <pre id="lorem-text" style="white-space: pre-wrap; font-family: 'Plus Jakarta Sans', sans-serif; color: #94a3b8; padding-top: 30px; font-size: 14px; line-height: 1.6;"></pre>
-
                 </div>
-
             </div>`;
-
-       
-
         if(window.lucide) lucide.createIcons();
-
     },
-
-
 
     renderColorPicker(container) {
-
         container.innerHTML = `
-
             <div class="card">
-
                 <div class="color-tool-layout" style="display: flex; gap: 30px; align-items: center;">
-
                     <div id="color-preview" class="color-preview-large"></div>
-
-                   
-
                     <div class="color-controls" style="flex: 1;">
-
                         <div class="group">
-
                             <label>Escolha na Paleta</label>
-
                             <div class="color-picker-container" id="picker-wrapper" style="background-color: #6366f1;">
-
                                 <span class="picker-label">Clique aqui para escolher</span>
-
                                 <input type="color" id="color-picker" value="#6366f1">
-
                             </div>
-
                         </div>
-
-                       
-
                         <div class="group" style="margin-top:15px">
-
                             <label>Código HEX</label>
-
                             <div class="field-box">
-
                                 <div class="field-content">
-
                                     <input type="text" id="color-hex-field" value="#6366F1" spellcheck="false">
-
                                     <button class="btn-copy-small" onclick="App.copyText(document.getElementById('color-hex-field').value)">
-
                                         <i data-lucide="copy" style="width:14px;height:14px"></i>
-
                                     </button>
-
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>`;
-
-
 
         const picker = document.getElementById('color-picker');
-
         const hexField = document.getElementById('color-hex-field');
-
         const preview = document.getElementById('color-preview');
-
         const wrapper = document.getElementById('picker-wrapper');
 
-
-
         const updateAll = (color) => {
-
             const hex = color.toUpperCase();
-
-            hexField.value = hex; // Atualiza o texto do input
-
+            hexField.value = hex;
             preview.style.backgroundColor = hex;
-
             wrapper.style.backgroundColor = hex;
-
-           
-
-            // Ajusta contraste do texto "Clique aqui"
-
             const r = parseInt(hex.slice(1,3), 16);
-
             const g = parseInt(hex.slice(3,5), 16);
-
             const b = parseInt(hex.slice(5,7), 16);
-
             const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-
             document.querySelector('.picker-label').style.color = brightness > 125 ? '#0f172a' : '#ffffff';
-
         };
-
-
-
-        // Evento quando muda na paleta
 
         picker.oninput = (e) => updateAll(e.target.value);
-
-
-
-        // Evento quando o usuário DIGITA no campo
-
         hexField.oninput = (e) => {
-
             let val = e.target.value;
-
             if(!val.startsWith('#')) val = '#' + val;
-
             if(/^#[0-9A-F]{6}$/i.test(val)) {
-
                 picker.value = val;
-
                 updateAll(val);
-
             }
-
         };
 
-
-
         if(window.lucide) lucide.createIcons();
-
     },
-
-
 
     renderMaps(view) {
-
         const coords = Generators.coordenadas();
-
         view.innerHTML = `
-
             <div class="card">
-
                 <div class="profile-grid">
-
                     ${this.buildField('Latitude', coords.latitude)}
-
                     ${this.buildField('Longitude', coords.longitude)}
-
                 </div>
-
                 <div class="map-container" style="margin-top: 25px; border-radius: 15px; overflow: hidden; height: 350px; border: 1px solid #e2e8f0;">
-
                     <iframe width="100%" height="100%" frameborder="0" src="https://maps.google.com/maps?q=${coords.latitude},${coords.longitude}&z=15&output=embed"></iframe>
-
                 </div>
-
                 <button class="btn-primary" style="margin-top: 20px;" onclick="App.route()">Gerar Nova Localização</button>
-
             </div>`;
-
         if(window.lucide) lucide.createIcons();
-
     },
-
-
-
-    // --- LÓGICA DE GERAÇÃO ---
-
-
 
     generateLorem() {
-
         const qty = parseInt(document.getElementById('lorem-qty').value) || 100;
-
         const type = document.getElementById('lorem-type').value;
-
-       
-
-        // Texto base (você pode expandir essa string se quiser parágrafos mais variados)
-
         const baseText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. ";
-
-       
-
         let result = "";
-
-
-
         if (type === 'chars') {
-
             while(result.length < qty) result += baseText;
-
             result = result.substring(0, qty);
-
-        }
-
-        else if (type === 'words') {
-
+        } else if (type === 'words') {
             const words = baseText.repeat(10).split(' ');
-
             result = words.slice(0, qty).join(' ');
-
-        }
-
-        else if (type === 'paragraphs') {
-
+        } else if (type === 'paragraphs') {
             for(let i = 0; i < qty; i++) {
-
                 result += baseText + "\n\n";
-
             }
-
         }
-
-
-
         const resDiv = document.getElementById('lorem-result-container');
-
         const pre = document.getElementById('lorem-text');
-
-       
-
         pre.innerText = result.trim();
-
         resDiv.style.display = 'block';
-
     },
 
-
-
     toggleQty() {
-
         const isJson = document.getElementById('outFormat').value === 'json';
-
         const qtyGroup = document.getElementById('qtyGroup');
-
         if(qtyGroup) qtyGroup.style.display = isJson ? 'block' : 'none';
-
     },
 
     generate(type) {
@@ -709,20 +543,13 @@ const App = {
                 endereco: Generators.getEndereco(),
                 acesso_e_contato: {
                     email: finalEmail,
-                    senha: Generators.password(12, {upper:true, num:true, sym:true}),
+                    senha: Generators.senha(),
                     celular: Generators.telefone()
                 }
             };
         }
-        
         const genFunc = Generators[type];
         return genFunc ? (typeof genFunc() === 'object' ? genFunc() : { [type]: genFunc() }) : { erro: "Não implementado" };
-    },
-
-    toggleQty() {
-        const isJson = document.getElementById('outFormat').value === 'json';
-        const qtyGroup = document.getElementById('qtyGroup');
-        if(qtyGroup) qtyGroup.style.display = isJson ? 'block' : 'none';
     },
 
     renderVisual(data, container) {
@@ -773,7 +600,6 @@ const App = {
     }
 };
 
-// Logica auxiliar de validação matemática
 const Validators = {
     calcCpf: (cpf) => {
         if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false;

@@ -85,12 +85,15 @@ const Generators = {
         };
     },
 
-    password: (len, opts) => {
-        let c = "abcdefghijklmnopqrstuvwxyz";
-        if (opts.upper) c += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        if (opts.num) c += "0123456789";
-        if (opts.sym) c += "!@#$%^&*()_+=-[]{};:,.<>?";
-        return Array.from({length: len}, () => c[Math.floor(Math.random() * c.length)]).join('');
+    senha: () => {
+        const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*";
+        return Array.from({length: 12}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+    },
+
+    boleto: () => {
+        // Gera uma linha digitável de exemplo (47 dígitos)
+        const n = () => Math.floor(Math.random() * 10);
+        return Array.from({length: 47}, n).join('').replace(/(\d{5})(\d{5})(\d{5})(\d{6})(\d{5})(\d{6})(\d{1})(\d{14})/, '$1.$2 $3.$4 $5.$6 $7 $8');
     },
     
     getEndereco: () => {

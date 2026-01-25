@@ -3,12 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevSimulate</title>
+    
+    <title>DevSimulate | Ferramentas Gratuitas para Desenvolvedores</title>
+    <meta name="description" content="Gerador de CPF, CNPJ, Pessoas e Validadores online. Ferramentas essenciais para testes de software com algoritmos reais.">
+    <meta name="keywords" content="gerador de cpf, gerador de cnpj, validador json, testes de software, dev tools">
+    <meta name="author" content="DevSimulate">
+
+    <meta property="og:title" content="DevSimulate - Ferramentas para Devs">
+    <meta property="og:description" content="Gere dados válidos para seus testes de forma rápida e gratuita.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://devsimulate.com.br">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="shortcut icon" type="imagex/png" href="assets/logo short.png">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script src="https://unpkg.com/lucide@latest"></script> 
 </head>
 <body>
     <script>
@@ -23,40 +34,40 @@
         <aside class="sidebar" id="sidebar">
             <div class="logo">
                 <div class="logo-icon">
-                    <img src="assets/logo.png" alt="">
+                    <img src="assets/logo.png" alt="DevSimulate Logo">
                 </div>
             </div>
             
             <nav class="nav-menu">
                 <div class="nav-category">Geradores</div>
                 <div class="nav-sub-category">Identidade</div>
-                <a href="#/pessoa" class="nav-item"><i data-lucide="user"></i> Pessoa</a>
-                <a href="#/cpf" class="nav-item"><i data-lucide="file-text"></i> CPF</a>
-                <a href="#/cnpj" class="nav-item"><i data-lucide="building"></i> CNPJ</a>
-                <a href="#/rg" class="nav-item"><i data-lucide="contact"></i> RG</a>
+                <a href="#/pessoa" class="nav-item"><i data-lucide="user"></i>Gerar Pessoa</a>
+                <a href="#/cpf" class="nav-item"><i data-lucide="file-text"></i>Gerar CPF</a>
+                <a href="#/cnpj" class="nav-item"><i data-lucide="building"></i>Gerar CNPJ</a>
+                <a href="#/rg" class="nav-item"><i data-lucide="contact"></i>Gerar RG</a>
 
                 <div class="nav-sub-category">Financeiro</div>
-                <a href="#/pix" class="nav-item"><i data-lucide="qr-code"></i> Chave PIX</a>
-                <a href="#/cartao" class="nav-item"><i data-lucide="credit-card"></i> Cartão</a>
-                <a href="#/contaBancaria" class="nav-item"><i data-lucide="landmark"></i> Conta Bancária</a>
-                <a href="#/boleto" class="nav-item"><i data-lucide="barcode"></i> Boleto</a>
-                <a href="#/ie" class="nav-item"><i data-lucide="hash"></i> Inscrição Estadual</a>
+                <a href="#/pix" class="nav-item"><i data-lucide="qr-code"></i>Gerar Chave PIX</a>
+                <a href="#/cartao" class="nav-item"><i data-lucide="credit-card"></i>Gerar Cartão</a>
+                <a href="#/contaBancaria" class="nav-item"><i data-lucide="landmark"></i>Gerar Conta Bancária</a>
+                <a href="#/boleto" class="nav-item"><i data-lucide="barcode"></i>Gerar Boleto</a>
+                <a href="#/ie" class="nav-item"><i data-lucide="hash"></i>Gerar Inscrição Estadual</a>
 
                 <div class="nav-sub-category">Desenvolvimento</div>
-                <a href="#/ip" class="nav-item"><i data-lucide="globe"></i> Endereço IP</a>
-                <a href="#/mac" class="nav-item"><i data-lucide="cpu"></i> MAC Address</a>
-                <a href="#/userAgent" class="nav-item"><i data-lucide="chrome"></i> User Agent</a>
-                <a href="#/senha" class="nav-item"><i data-lucide="lock"></i> Senha</a>
-                <a href="#/guid" class="nav-item"><i data-lucide="fingerprint"></i> GUID/UUID</a>
+                <a href="#/ip" class="nav-item"><i data-lucide="globe"></i>Gerar Endereço IP</a>
+                <a href="#/mac" class="nav-item"><i data-lucide="cpu"></i>Gerar MAC Address</a>
+                <a href="#/userAgent" class="nav-item"><i data-lucide="chrome"></i>Gerar User Agent</a>
+                <a href="#/senha" class="nav-item"><i data-lucide="lock"></i>Gerar Senha</a>
+                <a href="#/guid" class="nav-item"><i data-lucide="fingerprint"></i>Gerar GUID/UUID</a>
 
                 <div class="nav-sub-category">Utilidades</div>
-                <a href="#/qrcode" class="nav-item"><i data-lucide="qr-code"></i> QR Code</a>
-                <a href="#/cep" class="nav-item"><i data-lucide="map-pin"></i> CEP</a>
-                <a href="#/lorem" class="nav-item"><i data-lucide="align-left"></i> Lorem Ipsum</a>
-                <a href="#/cor" class="nav-item"><i data-lucide="palette"></i> Cor (Hex)</a>
-                <a href="#/coordenadas" class="nav-item"><i data-lucide="map"></i> Coordenadas</a>
-                <a href="#/placa" class="nav-item"><i data-lucide="car"></i> Placa Veicular</a>
-                <a href="#/renavam" class="nav-item"><i data-lucide="file-spreadsheet"></i> RENAVAM</a>
+                <a href="#/qrcode" class="nav-item"><i data-lucide="qr-code"></i>Gerar QR Code</a>
+                <a href="#/cep" class="nav-item"><i data-lucide="map-pin"></i>Gerar CEP</a>
+                <a href="#/lorem" class="nav-item"><i data-lucide="align-left"></i>Gerar Lorem Ipsum</a>
+                <a href="#/cor" class="nav-item"><i data-lucide="palette"></i>Gerar Cor (Hex)</a>
+                <a href="#/coordenadas" class="nav-item"><i data-lucide="map"></i>Gerar Coordenadas</a>
+                <a href="#/placa" class="nav-item"><i data-lucide="car"></i>Gerar Placa Veicular</a>
+                <a href="#/renavam" class="nav-item"><i data-lucide="file-spreadsheet"></i>Gerar RENAVAM</a>
 
                 <div class="nav-separator"></div>
 
@@ -89,6 +100,13 @@
             </header>
             
             <div id="app-view" class="container"></div>
+
+            <section id="seo-content" class="container" style="margin-top: 40px; padding: 20px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.9rem;">
+                <article id="tool-description">
+                    <h2>Sobre as ferramentas do DevSimulate</h2>
+                    <p>O DevSimulate oferece um ecossistema de ferramentas para desenvolvedores e testadores de software (QA). Nossa plataforma permite a geração de dados randômicos porém válidos, essenciais para testar sistemas que exigem validações de documentos brasileiros como CPF e CNPJ.</p>
+                </article>
+            </section>
         </main>
     </div>
 

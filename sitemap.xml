@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://devsimulate.com.br/</loc><priority>1.0</priority></url>
+  <url><loc>https://devsimulate.com.br/#/pessoa</loc><priority>0.9</priority></url>
+  <url><loc>https://devsimulate.com.br/#/cpf</loc><priority>0.9</priority></url>
+  <url><loc>https://devsimulate.com.br/#/cnpj</loc><priority>0.8</priority></url>
+  <url><loc>https://devsimulate.com.br/#/rg</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/pix</loc><priority>0.8</priority></url>
+  <url><loc>https://devsimulate.com.br/#/cartao</loc><priority>0.8</priority></url>
+  <url><loc>https://devsimulate.com.br/#/contaBancaria</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/boleto</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/ie</loc><priority>0.6</priority></url>
+  <url><loc>https://devsimulate.com.br/#/ip</loc><priority>0.6</priority></url>
+  <url><loc>https://devsimulate.com.br/#/mac</loc><priority>0.6</priority></url>
+  <url><loc>https://devsimulate.com.br/#/userAgent</loc><priority>0.6</priority></url>
+  <url><loc>https://devsimulate.com.br/#/senha</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/guid</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/qrcode</loc><priority>0.8</priority></url>
+  <url><loc>https://devsimulate.com.br/#/cep</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/lorem</loc><priority>0.6</priority></url>
+  <url><loc>https://devsimulate.com.br/#/cor</loc><priority>0.5</priority></url>
+  <url><loc>https://devsimulate.com.br/#/coordenadas</loc><priority>0.5</priority></url>
+  <url><loc>https://devsimulate.com.br/#/placa</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/renavam</loc><priority>0.7</priority></url>
+  <url><loc>https://devsimulate.com.br/#/validador-cpf</loc><priority>0.8</priority></url>
+  <url><loc>https://devsimulate.com.br/#/validador-cnpj</loc><priority>0.8</priority></url>
+  <url><loc>https://devsimulate.com.br/#/validador-json</loc><priority>0.9</priority></url>
+  <url><loc>https://devsimulate.com.br/#/validador-email</loc><priority>0.7</priority></url>
+</urlset>
