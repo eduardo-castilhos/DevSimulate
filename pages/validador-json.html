@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador JSON | DevSimulate</title>
+    <meta name="description" content="Analisa, formata e valida a sintaxe de códigos JSON em tempo real.">
+    <meta name="page-title" content="Validador JSON">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <div id="header-container"></div>
+            <div class="container">
+                <div class="card" style="margin-bottom: 30px;">
+                            <article class="prose">
+        <h4>Validar JSON</h4>
+        <p>O Validador de JSON do DevSimulate é uma ferramenta poderosa para analisar, formatar e validar a sintaxe de códigos JSON em tempo real. Essencial para desenvolvedores que trabalham com APIs, configuração de sistemas e troca de dados, ele ajuda a identificar erros de sintaxe, formatar JSONs ilegíveis e garantir que seus payloads estejam corretos antes de serem utilizados em produção. Uma ferramenta indispensável para depuração e desenvolvimento.</p>
+</article>
+                        </div><div class="card">
+                    <div class="group">
+                        <label>Cole seu JSON abaixo</label>
+                        <textarea id="json-input" class="select-modern" style="width: 100%; min-height: 200px; font-family: 'JetBrains Mono', monospace; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;" placeholder='{"exemplo": "valor"}'></textarea>
+                    </div>
+                    <button class="btn-primary" onclick="validateJSON()">Validar e Formatar JSON</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div id="footer-container"></div>
+        </main>
+    </div>
+    <script src="/js/modules/utils.js"></script>
+    <script src="/js/modules/generators.js"></script>
+    <script src="/js/modules/ui.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+        function validateJSON() {
+            const input = document.getElementById('json-input').value;
+            const res = Generators.validadorJson(input);
+            const container = document.getElementById('result');
+            
+            if (res.valid) {
+                UI.renderJson(res.data, 'result');
+                container.insertAdjacentHTML('afterbegin', '<div style="color: #469146; font-weight: 600; margin-bottom: 10px;">JSON Válido!</div>');
+            } else {
+                container.innerHTML = `<div style="color: #ef4444; background: #fef2f2; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #fee2e2;">
+                    <strong>Erro de Sintaxe:</strong><br>${res.error}
+                </div>`;
+            }
+        }
+    </script>
+</body>
+</html>

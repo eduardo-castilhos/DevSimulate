@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de User Agent | DevSimulate</title>
+    <meta name="description" content="Gere strings de User Agent de diversos navegadores e sistemas operacionais.">
+    <meta name="page-title" content="Gerador de User Agent">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <div id="header-container"></div>
+            <div class="container">
+                <div class="card" style="margin-bottom: 30px;">
+                            <article class="prose">
+        <h4>Gerar User Agent</h4>
+        <p>O Gerador de User Agent  do DevSimulate permite criar strings de User Agent de diversos navegadores e sistemas operacionais. Essencial para testar a compatibilidade de websites e aplicações web em diferentes ambientes, esta ferramenta ajuda a simular o comportamento de usuários com variadas configurações de navegador e dispositivo, garantindo uma experiência consistente para todos.</p>
+</article>
+                        </div><div class="card">
+                    <div class="config-row">
+                        <div class="group">
+                            <label>Formato de Saída</label>
+                            <select id="outFormat" onchange="App.toggleQty()">
+                                <option value="visual">Visual</option>
+                                <option value="json">JSON</option>
+                            </select>
+                        </div>
+                        <div class="group" id="qtyGroup" style="display:none">
+                            <label>Quantidade (JSON)</label>
+                            <select id="outQty">
+                                <option value="1">1</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="App.generate('userAgent')">Gerador de User Agent</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div id="footer-container"></div>
+        </main>
+    </div>
+    <script src="/js/datas/addresses.js"></script>
+    <script src="/js/modules/utils.js"></script>
+    <script src="/js/modules/generators.js"></script>
+    <script src="/js/modules/ui.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

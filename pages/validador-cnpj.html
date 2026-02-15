@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Validador de CNPJ | DevSimulate</title>
+    <meta name="description" content="Valida a estrutura de 14 dígitos de um CNPJ empresarial.">
+    <meta name="page-title" content="Validador de CNPJ">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <div id="header-container"></div>
+            <div class="container">
+                <div class="card" style="margin-bottom: 30px;">
+                            <article class="prose">
+        <h4>Validar CNPJ</h4>
+        <p>Utilize o Validador de CNPJ do DevSimulate para verificar a estrutura de 14 dígitos de um CNPJ empresarial. Esta ferramenta é fundamental para sistemas que processam informações de empresas, permitindo que desenvolvedores e QAs confirmem a validade formal de um CNPJ. Assegure a qualidade dos dados empresariais em suas aplicações.</p>
+</article>
+                        </div><div class="card">
+                    <div class="group">
+                        <label>Digite o CNPJ para validar</label>
+                        <input type="text" id="doc-input" placeholder="00.000.000/0000-00" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+                    </div>
+                    <button class="btn-primary" onclick="validate()">Validar CNPJ</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div id="footer-container"></div>
+        </main>
+    </div>
+    <script src="/js/modules/utils.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+        function validate() {
+            const input = document.getElementById('doc-input').value.replace(/\D/g, '');
+            const isValid = calcCnpj(input);
+            const container = document.getElementById('result');
+            container.innerHTML = isValid ? 
+                `<div style="color: #469146; background: #f0fdf4; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #dcfce7;"><strong>CNPJ Válido!</strong></div>` :
+                `<div style="color: #ef4444; background: #fef2f2; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid #fee2e2;"><strong>CNPJ Inválido!</strong></div>`;
+        }
+
+        function calcCnpj(cnpj) {
+            if (cnpj.length !== 14 || !!cnpj.match(/(\d)\1{13}/)) return false;
+            const calc = (s, n) => {
+                let p = n, t = 0;
+                for (let i = 0; i < s.length; i++) {
+                    t += s[i] * p--;
+                    if (p < 2) p = 9;
+                }
+                let r = t % 11;
+                return r < 2 ? 0 : 11 - r;
+            };
+            const d1 = calc(cnpj.substring(0, 12), 5);
+            const d2 = calc(cnpj.substring(0, 12) + d1, 6);
+            return cnpj.endsWith("" + d1 + d2);
+        }
+    </script>
+</body>
+</html>

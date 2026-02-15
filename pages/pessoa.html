@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Pessoa | DevSimulate</title>
+    <meta name="description" content="Gere perfis completos com nomes, documentos e endereços baseados em dados estatísticos brasileiros.">
+    <meta name="page-title" content="Gerador de Pessoa">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <div id="header-container"></div>
+            <div class="container">
+                <div class="card" style="margin-bottom: 30px;">
+                            <article class="prose">
+        <h4>Gerar Pessoa</h4>
+        <p>O Gerador de Pessoa do DevSimulate é uma ferramenta essencial para desenvolvedores e testadores que precisam de dados fictícios, mas realistas, para preencher formulários e testar sistemas. Com ele, você pode gerar perfis completos, incluindo nomes, CPFs, RGs, datas de nascimento, sexo, signos, endereços e contatos (e-mail, senha, celular), todos baseados em padrões estatísticos brasileiros. Ideal para simular cenários de cadastro e validação de dados pessoais em ambientes de desenvolvimento e homologação, garantindo a robustez do seu software sem comprometer dados reais.</p>
+</article>
+                        </div><div class="card">
+                    <div class="config-row">
+                        <div class="group">
+                            <label>Sexo</label>
+                            <select id="pSex">
+                                <option value="indiferente">Indiferente</option>
+                                <option value="masculino">Masculino</option>
+                                <option value="feminino">Feminino</option>
+                            </select>
+                        </div>
+                        <div class="group">
+                            <label>Formato de Saída</label>
+                            <select id="outFormat" onchange="App.toggleQty()">
+                                <option value="visual">Visual (Dossiê)</option>
+                                <option value="json">JSON</option>
+                            </select>
+                        </div>
+                        <div class="group" id="qtyGroup" style="display:none">
+                            <label>Quantidade (JSON)</label>
+                            <select id="outQty">
+                                <option value="1">1</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="App.generate('pessoa')">Gerar Pessoa</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div id="footer-container"></div>
+        </main>
+    </div>
+    <script src="/js/datas/names.js"></script>
+    <script src="/js/datas/surnames.js"></script>
+    <script src="/js/datas/addresses.js"></script>
+    <script src="/js/modules/utils.js"></script>
+    <script src="/js/modules/generators.js"></script>
+    <script src="/js/modules/ui.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

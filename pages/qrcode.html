@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de QR Code | DevSimulate</title>
+    <meta name="description" content="Ferramenta para gerar QR Codes a partir de textos ou links dinâmicos.">
+    <meta name="page-title" content="Gerador de QR Code">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <div id="header-container"></div>
+            <div class="container">
+                <div class="card" style="margin-bottom: 30px;">
+                            <article class="prose">
+        <h4>Gerar QR Code</h4>
+        <p>O Gerador de QR Code do DevSimulate permite criar códigos QR a partir de qualquer texto ou link. Esta ferramenta é útil para desenvolvedores que precisam testar a leitura de QR Codes em aplicações móveis, integrar funcionalidades de QR Code em seus sistemas ou simplesmente gerar códigos para uso em documentação e testes. Converta informações em um formato visual facilmente escaneável.</p>
+</article>
+                        </div><div class="card">
+                    <div class="group">
+                        <label>Texto ou Link</label>
+                        <input type="text" id="qr-input" placeholder="https://devsimulate.com.br" style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 20px;">
+                    </div>
+                    <button class="btn-primary" onclick="generateQR()">Gerar QR Code</button>
+                    <div id="qr-result" style="margin-top:20px; text-align:center; display:none;">
+                        <img id="qr-img" src="" alt="QR Code" style="border: 10px solid white; border-radius: 8px; box-shadow: var(--shadow); max-width: 200px;">
+                    </div>
+                </div>
+            </div>
+            <div id="footer-container"></div>
+        </main>
+    </div>
+    <script src="/js/modules/utils.js"></script>
+    <script src="/js/app.js"></script>
+    <script>
+        function generateQR(){
+            const val = document.getElementById('qr-input').value;
+            if(!val) return alert("Digite um link ou texto!");
+            const img = document.getElementById('qr-img');
+            const res = document.getElementById('qr-result');
+            img.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(val)}`;
+            res.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

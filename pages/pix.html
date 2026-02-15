@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Chave PIX | DevSimulate</title>
+    <meta name="description" content="Gere chaves PIX aleatórias (CPF, E-mail, Celular ou EVP) para testes de fluxos de pagamento.">
+    <meta name="page-title" content="Gerador de Chave PIX">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <div id="header-container"></div>
+            <div class="container">
+                <div class="card" style="margin-bottom: 30px;">
+                            <article class="prose">
+        <h4>Gerar Chave PIX</h4>
+        <p>Com o Gerador de Chave PIX do DevSimulate, você pode criar chaves PIX aleatórias nos formatos CPF, E-mail, Celular ou Chave Aleatória (EVP). Esta ferramenta é indispensável para desenvolvedores que estão implementando ou testando fluxos de pagamento e integração com o sistema PIX. Simule transações, valide a estrutura das chaves e garanta que seu sistema está preparado para operar com o meio de pagamento mais popular do Brasil.</p>
+</article>
+                        </div><div class="card">
+                    <div class="config-row">
+                        <div class="group">
+                            <label>Formato de Saída</label>
+                            <select id="outFormat" onchange="App.toggleQty()">
+                                <option value="visual">Visual</option>
+                                <option value="json">JSON</option>
+                            </select>
+                        </div>
+                        <div class="group" id="qtyGroup" style="display:none">
+                            <label>Quantidade (JSON)</label>
+                            <select id="outQty">
+                                <option value="1">1</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="App.generate('pix')">Gerador de Chave PIX</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div id="footer-container"></div>
+        </main>
+    </div>
+    <script src="/js/datas/addresses.js"></script>
+    <script src="/js/modules/utils.js"></script>
+    <script src="/js/modules/generators.js"></script>
+    <script src="/js/modules/ui.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>

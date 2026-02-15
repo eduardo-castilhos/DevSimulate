@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Boleto | DevSimulate</title>
+    <meta name="description" content="Simulador de linhas digitáveis de boletos bancários para testes de integração.">
+    <meta name="page-title" content="Gerador de Boleto">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <div class="layout">
+        <div id="sidebar-container"></div>
+        <main class="main-content">
+            <div id="header-container"></div>
+            <div class="container">
+                <div class="card" style="margin-bottom: 30px;">
+                            <article class="prose">
+        <h4>Gerar Boleto</h4>
+        <p>O Gerador de Boleto do DevSimulate simula linhas digitáveis de boletos bancários, um recurso valioso para testar integrações com sistemas de pagamento e automação bancária. Desenvolvedores podem usar essas linhas digitáveis fictícias para verificar a leitura de códigos de barras, o processamento de pagamentos e a conciliação bancária em seus sistemas, assegurando que a aplicação lida corretamente com o formato de boletos brasileiros.</p>
+</article>
+                        </div><div class="card">
+                    <div class="config-row">
+                        <div class="group">
+                            <label>Formato de Saída</label>
+                            <select id="outFormat" onchange="App.toggleQty()">
+                                <option value="visual">Visual</option>
+                                <option value="json">JSON</option>
+                            </select>
+                        </div>
+                        <div class="group" id="qtyGroup" style="display:none">
+                            <label>Quantidade (JSON)</label>
+                            <select id="outQty">
+                                <option value="1">1</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn-primary" onclick="App.generate('boleto')">Gerador de Boleto</button>
+                    <div id="result"></div>
+                </div>
+            </div>
+            <div id="footer-container"></div>
+        </main>
+    </div>
+    <script src="/js/datas/addresses.js"></script>
+    <script src="/js/modules/utils.js"></script>
+    <script src="/js/modules/generators.js"></script>
+    <script src="/js/modules/ui.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
